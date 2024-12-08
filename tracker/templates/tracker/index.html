@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <main class="container mt-5">
+    <section class="row">
+      <div class="col-6">
+        <h2 class="text-center">Транзакції</h2>
+        {% for transation in transations %}
+          <div class="transation">
+            <p class="transation__info">{{ transation.description }} - {{ transation.amount }} грн</p>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="col-6">
+        <h2 class="text-center">Категорії</h2>
+        {% for category in categorys %}
+          <div class="transation">
+            <a href="{{ category.get_absolute_url }}">{{ category.title }}</a>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+{% endblock %}

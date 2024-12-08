@@ -1,0 +1,16 @@
+p {
+    margin: 0;
+}
+
+.transation {
+    background-color: rgb(255, 217, 0);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.transation__info {
+    font-weight: 600;
+}

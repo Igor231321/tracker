@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from tracker.models import Transaction, Category
+from tracker.models import Category, Transaction
 
 
 @admin.register(Category)
@@ -11,7 +11,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ["description", "amount", "date", "category", "transaction_type"]
-    list_filter = ["amount", "date", "category", "transaction_type"]
+    list_display = ["description", "amount", "date", "category", "operation"]
+    list_filter = ["amount", "date", "category", "operation"]
     search_fields = ["description", "amount"]
     date_hierarchy = "date"

@@ -1,20 +1,60 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="{% static 'css\bootstrap\bootstrap.min.css' %}" />
-    {% block css %}{% endblock css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    {% block css %}
+
+    {% endblock %}
+
     <title>Document</title>
   </head>
   <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="nav-container__left">Лого</div>
+
+        <div class="nav-container__menu">
+          {% comment %} <button class="navbar-toggler btn-offcanvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#000">
+                <path d="M120-240v-66.67h720V-240H120Zm0-206.67v-66.66h720v66.66H120Zm0-206.66V-720h720v66.67H120Z" />
+              </svg>
+            </span>
+          </button> {% endcomment %}
+
+          <div class="nav-container__links">
+            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:index' %}active{% endif %}" href="{% url 'tracker:index' %}">Аналітіка</a>
+            <a class="nav-link {% if 'create' in request.path %}active{% endif %}" href="{% url 'tracker:create' %}">Додати транзакції</a>
+            <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
+          </div>
+        </div>
+      </nav>
+
+      {% comment %} <aside class="offcanvas offcanvas-top h-100" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+        <div class="offcanvas-header mt-3">
+          <img src="" alt="Logo" style="max-width: 130px;" />
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="nav-container__links--mobile">
+            <a href="" class="nav-link">Каталог</a>
+
+            <a href="" class="nav-link">Доставка</a>
+          </div>
+        </div>
+      </aside> {% endcomment %}
+    </header>
+
     {% block content %}
-    
+
     {% endblock %}
-    
+
     <script src="{% static 'js/jquery/jquery-3.7.0.min.js' %}"></script>
     <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
   </body>

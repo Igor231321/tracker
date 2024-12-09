@@ -1,29 +1,87 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block css %}
-  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
-{% endblock %}
-
 {% block content %}
   <main class="container mt-5">
-    <section class="row">
-      <div class="col-6">
-        <h2 class="text-center">Транзакції</h2>
-        {% for transation in transations %}
-          <div class="transation">
-            <p class="transation__info">{{ transation.description }} - {{ transation.amount }} грн</p>
+    <section class="row g-4">
+      <div class="col-12">
+        <div class="box">
+          <div class="row">
+            <div class="col-4">
+              <h4 class="box__title">Витрати у грудні</h4>
+              <p class="box__text">{{ transations_expense_total.total_sum }} UAN</p>
+            </div>
           </div>
-        {% endfor %}
+        </div>
       </div>
 
       <div class="col-6">
-        <h2 class="text-center">Категорії</h2>
-        {% for category in categorys %}
-          <div class="transation">
-            <a href="{{ category.get_absolute_url }}">{{ category.title }}</a>
-          </div>
-        {% endfor %}
+        <div class="box">
+          <h2 class="box__title">Категорії витрат</h2>
+
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Категорія</th>
+                <th scope="col" class="text-center">Транзакції</th>
+                <th scope="col" class="text-center">Сума</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for category in categories_with_total_expense %}
+                <tr>
+                  <th scope="row" class="fw-normal">{{ category.title }}</th>
+                  <td class="text-center">{{ category.total_transactions }}</td>
+                  <td class="text-center">-{{ category.total_amount }}</td>
+                  <td>
+                    <a href="{% url 'tracker:category_detail' category.slug %}">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+                        <path d="m501.85-481-186-186L376-727.15 622.15-481 376-234.85 315.85-295l186-186Z" />
+                      </svg>
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="box">
+          <h2 class="box__title">Категорії надходжень</h2>
+          {% if categories_with_total_income %}
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Категорія</th>
+                  <th scope="col" class="text-center">Транзакції</th>
+                  <th scope="col" class="text-center">Сума</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for category in categories_with_total_income %}
+                  <tr>
+                    <th scope="row" class="fw-normal">{{ category.title }}</th>
+                    <td class="text-center">{{ category.total_transactions }}</td>
+                    <td class="text-green text-center">+{{ category.total_amount }}</td>
+                    <td>
+                      <a href="{% url 'tracker:category_detail' category.slug %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+                          <path d="m501.85-481-186-186L376-727.15 622.15-481 376-234.85 315.85-295l186-186Z" />
+                        </svg>
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>Надходжень поки що не має</p>
+          {% endif %}
+        </div>
       </div>
     </section>
   </main>

@@ -9,6 +9,20 @@ from django.db import models
 from django.urls import reverse
 
 
+class TransactionQuerySet(models.QuerySet):
+    def income(self):
+        return self.filter(operation=Transaction.Operation.INCOME)
+
+    def expense(self):
+        return self.filter(operation=Transaction.Operation.EXPENSE)
+
+    def total_income(self):
+        return self.income().aggregate(total_sum=models.Sum("amount"))
+
+    def total_expense(self):
+        return self.expense().aggregate(total_sum=models.Sum("amount"))
+
+
 class Category(models.Model):
     title = models.CharField(max_length=150, verbose_name="Назва категорії")
     slug = models.SlugField(max_length=150, unique=True, verbose_name="SLUG_URL")
@@ -26,20 +40,22 @@ class Category(models.Model):
 
 
 class Transaction(models.Model):
-    class TransactionType(models.TextChoices):
-        INCOME = "income", "Доход"
-        EXPENSE = "expense", "Расход"
-    
+    class Operation(models.TextChoices):
+        INCOME = "income", "Надходженя"
+        EXPENSE = "expense", "Витрати"
+
     amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Количество")
     description = models.CharField("Опис", max_length=50)
     date =  models.DateTimeField(auto_now_add=True, verbose_name="Дата")
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="transactions", verbose_name="Категорія")
-    transaction_type = models.CharField(max_length=20, choices=TransactionType.choices, default=TransactionType.INCOME)
+    operation = models.CharField(max_length=20, choices=Operation.choices, default=Operation.INCOME)
+
+    objects = TransactionQuerySet().as_manager()
 
     class Meta:
         db_table = 'transaction'
-        verbose_name = "Витрати"
-        verbose_name_plural = "Витрати"
+        verbose_name = "Транзакція"
+        verbose_name_plural = "Транзакції"
     
     def __str__(self):
         return self.description

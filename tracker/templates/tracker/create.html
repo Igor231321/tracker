@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-8">
+        <div class="box">
+          <h2 class="box__title">Форма</h2>
+          <form action="{% url 'tracker:create' %}" method="post">
+            {% csrf_token %}
+
+            <div class="input-group has-validation mb-3">
+              <div class="form-floating {% if form.amount.errors %}is-invalid{% endif %}">
+                <input type="number" class="form-control {% if form.amount.errors %}is-invalid{% endif %}" name="amount" id="id_amount" required placeholder="" step="0.01"/>
+                <label for="id_amount">Количество:</label>
+              </div>
+              {% if form.amount.errors %}
+                {% for error in form.amount.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <div class="input-group has-validation mb-3">
+              <div class="form-floating {% if form.description.errors %}is-invalid{% endif %}">
+                <input type="text" name="description" class="form-control" value="{% if form.description.value %}{{ form.description.value }}{% endif %}" id="id_description" placeholder="" required />
+                <label for="id_description">Опис:</label>
+              </div>
+              {% if form.description.errors %}
+                {% for error in form.description.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <div class="input-group has-validation mb-3">
+              <div class="form-floating {% if form.category.errors %}is-invalid{% endif %}">
+                <select class="form-select" name="category" required id="id_category">
+                  <option value="">Виберіть категорію</option>
+                  {% for category in categories %}
+                    <option value="{{ category.pk }}">{{ category.title }}</option>
+                  {% endfor %}
+                </select>
+                <label for="id_category">Категорія</label>
+              </div>
+              {% if form.category.errors %}
+                {% for error in form.category.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <div class="input-group has-validation mb-3">
+              <div class="form-floating {% if form.operation.errors %}is-invalid{% endif %}">
+                <select class="form-select" name="operation" id="id_operation" required>
+                  {% for value, label in operations %}
+                    <option value="{{ value }}">{{ label }}</option>
+                  {% endfor %}
+                </select>
+                <label for="id_operation">Тип транзакції</label>
+              </div>
+              {% if form.operation.errors %}
+                {% for error in form.operation.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <button type="submit" class="btn-yellow">Додати</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

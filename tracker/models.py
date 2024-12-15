@@ -56,6 +56,7 @@ class Transaction(models.Model):
         db_table = 'transaction'
         verbose_name = "Транзакція"
         verbose_name_plural = "Транзакції"
-    
+        ordering = ["-date"]
+
     def __str__(self):
         return self.description

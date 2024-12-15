@@ -15,3 +15,4 @@ class TransactionAdmin(admin.ModelAdmin):
     list_filter = ["amount", "date", "category", "operation"]
     search_fields = ["description", "amount"]
     date_hierarchy = "date"
+    list_editable = ["amount", "operation"]

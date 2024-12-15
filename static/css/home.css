@@ -29,7 +29,6 @@ p {
     grid-template-columns: auto 1fr;
     justify-content: end;
     align-items: center;
-    max-width: 1400px;
     height: 60px;
     margin: 0 auto;
 }
@@ -72,8 +71,8 @@ p {
 .nav-link::before {
     content: '';
     position: absolute;
-    bottom: 0px;
-    height: 2px;
+    bottom: -6px;
+    height: 3px;
     left: 1%;
     width: 100%;
     background: var(--altbackground);
@@ -124,6 +123,8 @@ p {
     background: #fff;
     border-radius: 12px;
     padding: 2rem;
+    /* box-shadow: 0 4px 12px #202020; */
+    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, 0.3);
 }
 
 .box__title {
@@ -134,8 +135,6 @@ p {
     text-transform: uppercase;
     font-size: 1.3rem;
 }
-
-.box__text {}
 
 .text-green {
     color: #31cf39 !important;
@@ -159,5 +158,96 @@ p {
     color: #202020;
     border-color: #202020;
     background-color: #fff;
+}
 
+.arhiv-card+.arhiv-card {
+    margin-top: 10px;
+}
+
+.arhiv-card {
+    border: 1px solid #202020;
+}
+
+.arhiv-header {
+    background-color: var(--foreground);
+    color: var(--altbackground);
+    font-size: 1.15rem;
+    padding: 8px;
+}
+
+.arhiv-body {
+    padding: 8px;
+    background-color: var(--altbackground);
+}
+
+.arhiv__item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.arhiv__description {
+    font-weight: 700;
+}
+
+.arhiv__amount {
+    font-weight: 700;
+}
+
+.col-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    border-bottom: 1px solid hsl(0 0% 82% / 1);
+    margin: 20px 0;
+}
+
+.col__title {
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 28px;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.filters {
+    display: flex;
+    column-gap: 18px;
+}
+
+.filters__text {
+    font-weight: 500;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-bottom: 1px solid transparent;
+    color: #797979;
+    transition: all .2s ease-in-out;
+    position: relative;
+}
+
+.filters__text::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: #000;
+    bottom: -2px;
+    left: 0;
+    opacity: 0;
+    transition: all .2s ease-in-out;
+}
+
+.filters__text:hover::after,
+.filters__text.active::after,
+.filters__text:hover,
+.filters__text.active {
+    opacity: 1;
+    color: #000;
+}
+
+.offcanvas__title {
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    /* color: #f9fbfc; */
+    margin-top: 20px;
 }

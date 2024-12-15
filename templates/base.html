@@ -12,11 +12,11 @@
 
     {% endblock %}
 
-    <title>Document</title>
+    <title>{% block title %} {% endblock %}</title>
   </head>
   <body>
-    <header class="header">
-      <nav class="nav-container">
+    <header class="header ">
+      <nav class="nav-container container">
         <div class="nav-container__left">Лого</div>
 
         <div class="nav-container__menu">
@@ -29,7 +29,8 @@
           </button> {% endcomment %}
 
           <div class="nav-container__links">
-            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:index' %}active{% endif %}" href="{% url 'tracker:index' %}">Аналітіка</a>
+            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:index' %}active{% endif %}" href="{% url 'tracker:index' %}">Історія</a>
+            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:analytics' %}active{% endif %}" href="{% url 'tracker:analytics' %}">Аналітіка</a>
             <a class="nav-link {% if 'create' in request.path %}active{% endif %}" href="{% url 'tracker:create' %}">Додати транзакції</a>
             <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
           </div>

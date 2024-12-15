@@ -1,88 +1,101 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}
+Історія транзакцій
+{% endblock title %}
+
+
+
 {% block content %}
-  <main class="container mt-5">
-    <section class="row g-4">
+  <div class="container mt-4">
+    <div class="row">
       <div class="col-12">
-        <div class="box">
-          <div class="row">
-            <div class="col-4">
-              <h4 class="box__title">Витрати у грудні</h4>
-              <p class="box__text">{{ transations_expense_total.total_sum }} UAN</p>
-            </div>
-          </div>
+        <div class="col-header">
+          <h1 class="col__title">Транзакції</h1>
+
+          <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Фільтр</button>
         </div>
-      </div>
 
-      <div class="col-6">
-        <div class="box">
-          <h2 class="box__title">Категорії витрат</h2>
-
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Категорія</th>
-                <th scope="col" class="text-center">Транзакції</th>
-                <th scope="col" class="text-center">Сума</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for category in categories_with_total_expense %}
-                <tr>
-                  <th scope="row" class="fw-normal">{{ category.title }}</th>
-                  <td class="text-center">{{ category.total_transactions }}</td>
-                  <td class="text-center">-{{ category.total_amount }}</td>
-                  <td>
-                    <a href="{% url 'tracker:category_detail' category.slug %}">
-                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
-                        <path d="m501.85-481-186-186L376-727.15 622.15-481 376-234.85 315.85-295l186-186Z" />
-                      </svg>
-                    </a>
-                  </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div class="box">
-          <h2 class="box__title">Категорії надходжень</h2>
-          {% if categories_with_total_income %}
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Категорія</th>
-                  <th scope="col" class="text-center">Транзакції</th>
-                  <th scope="col" class="text-center">Сума</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for category in categories_with_total_income %}
-                  <tr>
-                    <th scope="row" class="fw-normal">{{ category.title }}</th>
-                    <td class="text-center">{{ category.total_transactions }}</td>
-                    <td class="text-green text-center">+{{ category.total_amount }}</td>
-                    <td>
-                      <a href="{% url 'tracker:category_detail' category.slug %}">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
-                          <path d="m501.85-481-186-186L376-727.15 622.15-481 376-234.85 315.85-295l186-186Z" />
-                        </svg>
-                      </a>
-                    </td>
-                  </tr>
+        {% if grouped_transactions %}
+          {% for date, transactions in grouped_transactions.items %}
+            <div class="arhiv-card">
+              <div class="arhiv-header">{{ date }}</div>
+              <div class="arhiv-body">
+                {% for transaction in transactions %}
+                  <div class="arhiv__item">
+                    <span class="arhiv__description">{{ transaction.description }}</span>
+                    {% if transaction.operation == 'income' %}
+                      <span class="arhiv__amount text-green">{{ transaction.amount }} UAN</span>
+                    {% else %}
+                      <span class="arhiv__amount">-{{ transaction.amount }} UAN</span>
+                    {% endif %}
+                  </div>
                 {% endfor %}
-              </tbody>
-            </table>
-          {% else %}
-            <p>Надходжень поки що не має</p>
-          {% endif %}
-        </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="fw-bold fs-5">Транзакції не знайдено</p>
+        {% endif %}
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
+
+  <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Фільтр</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <form action="{% url 'tracker:index' %}" method="get" class="row">
+        
+        <div class="col-12">
+          <h6 class="offcanvas__title">Тип транзакції</h6>
+          {% comment %} <a href="{% url 'tracker:index' %}?query=income" class="filters__text {% if 'income' in request.GET.query %}active{% endif %}">Прибуток</a>
+          <a href="{% url 'tracker:index' %}?query=expense" class="filters__text {% if 'expense' in request.GET.query %}active{% endif %}">Витрати</a> {% endcomment %}
+          <input type="radio" class="btn-check" name="operation" id="btn-check-default" value="default" 
+          {% if "default" in request.GET.operation or not request.GET.operation %}checked{% endif %}
+          />
+          <label class="btn btn-outline-dark mb-3" for="btn-check-default">Усі</label>
+          
+          <input type="radio" class="btn-check" name="operation" id="btn-check-income" value="income" 
+          {% if "income" in request.GET.operation %}checked{% endif %}
+          />
+          <label class="btn btn-outline-dark mb-3" for="btn-check-income">Прибуток</label>
+
+          <input type="radio" class="btn-check" name="operation" id="btn-check-expense" value="expense" 
+          {% if "expense" in request.GET.operation %}checked{% endif %}/>
+          <label class="btn btn-outline-dark mb-3" for="btn-check-expense">Витрати</label>
+        </div>
+        {% comment %} <input type="hidden" name="q" value="request.GET." /> {% endcomment %}
+
+        <div class="col-12">
+          <h6 class="offcanvas__title">Категорія</h6>
+          {% for category in categorys %}
+            <input 
+              type="checkbox" 
+              class="btn-check" 
+              name="category" 
+              id="btn-check-{{ category.id }}" 
+              value="{{ category.slug }}" 
+              {% if category.slug in selected_categorys %}checked{% endif %}
+            >
+            <label class="btn btn-outline-dark mb-3" for="btn-check-{{ category.id }}">{{ category.title }}</label>
+          {% endfor %}
+        </div>
+
+        <div class="col-12">
+          <h6 class="offcanvas__title">Період</h6>
+          {% for item in months %}
+            <input type="radio" class="btn-check" name="month" id="btn-check-{{ item.month_num }}" value="{{ item.month_num }}" 
+            {% if item.month_num == month %}checked{% endif %}
+            />
+            <label class="btn btn-outline-dark mb-3" for="btn-check-{{ item.month_num }}">{{ item.month_name }}</label>
+          {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-warning mt-3">Застосувати</button>
+      </form>
+    </div>
+  </div>
 {% endblock %}

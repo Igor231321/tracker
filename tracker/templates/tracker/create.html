@@ -1,27 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block css %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+{% endblock %}
+
+{% block title %}Додати транзакцію{% endblock title %}
+
 {% block content %}
   <div class="container mt-5">
     <div class="row justify-content-center">
-      <div class="col-8">
+      <div class="col-lg-8">
         <div class="box">
-          <h2 class="box__title">Форма</h2>
+          <h2 class="box__title text-center fs-3">Додати транзакцію</h2>
           <form action="{% url 'tracker:create' %}" method="post">
             {% csrf_token %}
-
-            <div class="input-group has-validation mb-3">
-              <div class="form-floating {% if form.amount.errors %}is-invalid{% endif %}">
-                <input type="number" class="form-control {% if form.amount.errors %}is-invalid{% endif %}" name="amount" id="id_amount" required placeholder="" step="0.01"/>
-                <label for="id_amount">Количество:</label>
-              </div>
-              {% if form.amount.errors %}
-                {% for error in form.amount.errors %}
-                  <div class="invalid-feedback">{{ error }}</div>
-                {% endfor %}
-              {% endif %}
-            </div>
-
             <div class="input-group has-validation mb-3">
               <div class="form-floating {% if form.description.errors %}is-invalid{% endif %}">
                 <input type="text" name="description" class="form-control" value="{% if form.description.value %}{{ form.description.value }}{% endif %}" id="id_description" placeholder="" required />
@@ -29,6 +22,18 @@
               </div>
               {% if form.description.errors %}
                 {% for error in form.description.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+            
+            <div class="input-group has-validation mb-3">
+              <div class="form-floating {% if form.amount.errors %}is-invalid{% endif %}">
+                <input type="number" class="form-control {% if form.amount.errors %}is-invalid{% endif %}" name="amount" id="id_amount" required placeholder="" step="0.01" />
+                <label for="id_amount">Количество:</label>
+              </div>
+              {% if form.amount.errors %}
+                {% for error in form.amount.errors %}
                   <div class="invalid-feedback">{{ error }}</div>
                 {% endfor %}
               {% endif %}
@@ -52,16 +57,28 @@
             </div>
 
             <div class="input-group has-validation mb-3">
-              <div class="form-floating {% if form.operation.errors %}is-invalid{% endif %}">
-                <select class="form-select" name="operation" id="id_operation" required>
-                  {% for value, label in operations %}
+              <div class="form-floating {% if form.status.errors %}is-invalid{% endif %}">
+                <select class="form-select" name="status" id="id_status" required>
+                  {% for value, label in status %}
                     <option value="{{ value }}">{{ label }}</option>
                   {% endfor %}
                 </select>
-                <label for="id_operation">Тип транзакції</label>
+                <label for="id_status">Тип транзакції</label>
               </div>
-              {% if form.operation.errors %}
-                {% for error in form.operation.errors %}
+              {% if form.status.errors %}
+                {% for error in form.status.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <div class="input-group has-validation mb-3">
+              <div class="form-floating {% if form.created_at.errors %}is-invalid{% endif %}">
+                <input type="date" name="created_at" class="form-control" value="{% if form.created_at.value %}{{ form.created_at.value }}{% endif %}" id="id_created_at" placeholder="" required readonly /> 
+                <label for="id_created_at">Дата транзакції:</label>
+              </div>
+              {% if form.created_at.errors %}
+                {% for error in form.created_at.errors %}
                   <div class="invalid-feedback">{{ error }}</div>
                 {% endfor %}
               {% endif %}
@@ -73,4 +90,25 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block js %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/uk.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      // Инициализация Flatpickr
+      $('#id_created_at').flatpickr({
+        dateFormat: 'Y-m-d H:i', // Добавляем время в формат
+        locale: 'uk',  // Украинская локализация
+        allowInput: true, // Разрешить ввод даты вручную
+        maxDate: 'today', // Запрещает ввод дат в будущем
+        enableTime: true, // Разрешить выбор времени
+        noCalendar: false, // Включить календарь
+        time_24hr: true, // 24-часовой формат времени
+      });
+    });
+  </script>
 {% endblock %}

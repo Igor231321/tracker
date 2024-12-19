@@ -6,4 +6,4 @@ from tracker.models import Transaction
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ["amount", "description", "category", "operation"]
+        fields = ["amount", "description", "category", "created_at", "status"]

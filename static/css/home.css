@@ -128,12 +128,9 @@ p {
 }
 
 .box__title {
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 }
 
 .text-green {
@@ -143,20 +140,19 @@ p {
 
 .btn-yellow {
     display: inline-block;
-    padding: .575rem 2.25rem;
+    padding: .6rem 2.75rem;
     min-width: 150px;
     color: var(--altbackground);
     background-color: var(--foreground);
-    transition: all .3s ease;
+    transition: all .2s ease;
     text-transform: uppercase;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    border: 2px solid transparent;
+    border: 3px solid #202020;;
 }
 
 .btn-yellow:hover {
     color: #202020;
-    border-color: #202020;
     background-color: #fff;
 }
 

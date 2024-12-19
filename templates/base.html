@@ -8,10 +8,10 @@
 
     <link rel="stylesheet" href="{% static 'css\bootstrap\bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    
     {% block css %}
 
     {% endblock %}
-
     <title>{% block title %} {% endblock %}</title>
   </head>
   <body>
@@ -58,5 +58,7 @@
 
     <script src="{% static 'js/jquery/jquery-3.7.0.min.js' %}"></script>
     <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+
+    {% block js %}{% endblock js %}
   </body>
 </html>

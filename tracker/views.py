@@ -1,10 +1,12 @@
-from django.db.models import Q, Case, Sum, Count, Value, When
+from django.db.models import Case, Count, Sum, Value, When
+from django.db.models.base import Model as Model
 from django.db.models.functions import ExtractMonth
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
 from tracker.forms import TransactionForm
-from tracker.models import Category, Transaction
+from tracker.models import Category, Status, Transaction
 
 
 class AnalyticsListView(generic.ListView):
@@ -16,12 +18,10 @@ class AnalyticsListView(generic.ListView):
         context = super().get_context_data(**kwargs)
 
         categories_with_total_income = (
-            Category.objects.annotate(
+            Category.objects.income()
+            .annotate(
                 total_amount=Sum(
                     "transactions__amount",
-                    filter=Q(
-                        transactions__operation=Transaction.Operation.INCOME
-                    ),  # Условие фильтрации
                 ),
                 total_transactions=Count("transactions"),
             )
@@ -30,12 +30,10 @@ class AnalyticsListView(generic.ListView):
         )
 
         categories_with_total_expense = (
-            Category.objects.annotate(
+            Category.objects.expense()
+            .annotate(
                 total_amount=Sum(
                     "transactions__amount",
-                    filter=Q(
-                        transactions__operation=Transaction.Operation.EXPENSE
-                    ),  # Условие фильтрации
                 ),
                 total_transactions=Count("transactions"),
             )
@@ -43,12 +41,9 @@ class AnalyticsListView(generic.ListView):
             .order_by("-total_amount")
         )
 
-    
         context["categories_with_total_income"] = categories_with_total_income
         context["categories_with_total_expense"] = categories_with_total_expense
         context["transations_expense_total"] = Transaction.objects.total_expense()
-
-
 
         return context
 
@@ -58,15 +53,19 @@ class CategoryDetailView(generic.DetailView):
     template_name = "tracker/category.html"
     context_object_name = "category"
 
+    def get_object(self, queryset=None):
+        slug = self.kwargs.get("slug")
+        return get_object_or_404(Category, slug=slug)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["transactions"] = self.object.transactions.all()
 
-        if self.object.title in ["Работа", "Стипендія"]:
-            context["transactions_income"] = self.object.transactions.total_income()
+        if self.object.status == "expense":
+            context["transactions_expense_sum"] = self.object.transactions.total_expense()
         else:
-            context["transactions_expense"] = self.object.transactions.total_expense()
+            context["transactions_income_sum"] = self.object.transactions.total_income()
 
+        context["transactions"] = self.object.transactions.all()
         return context
 
 
@@ -78,7 +77,7 @@ class TransactionCreateView(generic.CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["categories"] = Category.objects.all()
-        context["operations"] = Transaction.Operation.choices
+        context["status"] = Status.choices
         return context
 
 
@@ -87,23 +86,23 @@ class TransactionListView(generic.ListView):
     context_object_name = "transactions"
 
     def get_queryset(self):
-        operation = self.request.GET.get("operation")
+        status = self.request.GET.get("status")
         category = self.request.GET.getlist("category")
         month = self.request.GET.get("month")
 
-        if operation == "default" or not operation:
+        if status == "default" or not status:
             transactions = Transaction.objects.all()
-        elif operation == "income":
+        elif status == "income":
             transactions = Transaction.objects.income()
-        elif operation == "expense":
+        elif status == "expense":
             transactions = Transaction.objects.expense()
 
         if category:
             transactions = transactions.filter(category__slug__in=category)
 
         if month:
-            transactions = transactions.filter(date__month=month)
-            
+            transactions = transactions.filter(created_at__month=month)
+
         return transactions
 
     def get_context_data(self, **kwargs):
@@ -125,7 +124,7 @@ class TransactionListView(generic.ListView):
         }
 
         transaction_month = (
-            Transaction.objects.annotate(month_num=ExtractMonth("date"))
+            Transaction.objects.annotate(month_num=ExtractMonth("created_at"))
             .annotate(
                 month_name=Case(
                     *[
@@ -143,12 +142,12 @@ class TransactionListView(generic.ListView):
         grouped_transactions = {}
 
         for transaction in transactions:
-            date_key = transaction.date.date()
+            created_at_key = transaction.created_at.date()
 
-            if date_key not in grouped_transactions:
-                grouped_transactions[date_key] = []
+            if created_at_key not in grouped_transactions:
+                grouped_transactions[created_at_key] = []
 
-            grouped_transactions[date_key].append(transaction)
+            grouped_transactions[created_at_key].append(transaction)
 
         context["grouped_transactions"] = grouped_transactions
         context["categorys"] = Category.objects.all()

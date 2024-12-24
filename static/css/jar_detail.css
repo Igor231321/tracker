@@ -1,0 +1,11 @@
+.box-grey {
+    background-color: rgb(218, 218, 218);
+    padding: 1.3rem;
+    border-radius: .4rem;
+}
+
+.box-grey__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

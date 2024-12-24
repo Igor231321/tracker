@@ -4,10 +4,11 @@
     --background: #f9fbfc;
     --altbackground: #f2f5fb;
     --foreground: #0f2346;
+    --foreground: #0f2346;
 }
 
 body {
-    background: hsl(0, 0%, 94%);
+    background: var(--background);
     font-family: "Inter", sans-serif;
 }
 
@@ -17,11 +18,13 @@ p {
 
 
 .header {
-    /* padding-top: 105px; */
-    color: #f9fbfc;
+    color: #000000;
     width: 100%;
-    background-color: var(--foreground);
-
+    border-bottom: 1px solid #c2c2c2;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: var(--background);
 }
 
 .nav-container {
@@ -36,12 +39,14 @@ p {
 .nav-container__menu {
     display: flex;
     justify-content: end;
+    height: 100%;
 }
 
 .nav-container__links {
     display: flex;
     align-items: center;
     gap: 25px;
+    height: 100%;
 }
 
 .nav-container__links--mobile {
@@ -52,48 +57,48 @@ p {
 }
 
 .nav-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     position: relative;
     font-size: .88rem;
-    text-transform: uppercase;
-    color: #b8b8b8;
+
+    color: hsl(210, 2%, 64%);
     font-weight: 600;
-    padding: 12px 9px;
+    /* padding: 12px 9px; */
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
     transition: all .2s linear;
+    text-decoration: none;
+    font-size: 18px;
+    height: 100%;
 }
 
 .nav-link:hover {
-    color: var(--altbackground);
+    color: var(--foreground);
 }
 
 .nav-link::before {
     content: '';
-    position: absolute;
-    bottom: -6px;
-    height: 3px;
-    left: 1%;
     width: 100%;
-    background: var(--altbackground);
-    transform: scale(0, 1) translateX(-50%);
-    transform-origin: left;
-    /* transition: transform .25s ease-in-out, color 0s ease-in-out; */
-    transition: transform .15s ease-in-out, color 0s ease-in-out, -webkit-transform .15s ease-in-out
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    right: 50%;
+    background: currentColor;
+    transform: scale(0, 0) translate(-50%, 0);
+    transition: transform .2s ease-in-out;
 }
 
 .nav-link:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
+    transform: scale(1, 1) translate(50%, 0);
 }
 
 .nav-link.active {
-    color: var(--color-grey);
+    color: #000;
 }
 
 .nav-link.active::before {
-    transform: scaleX(1);
-    background: var(--altbackground);
+    transform: scale(1, 1) translate(50%, 0);
 }
 
 .nav-link--mobile {
@@ -148,7 +153,8 @@ p {
     text-transform: uppercase;
     font-size: 1.1rem;
     font-weight: 700;
-    border: 3px solid #202020;;
+    border: 3px solid #202020;
+    ;
 }
 
 .btn-yellow:hover {
@@ -193,7 +199,6 @@ p {
     display: flex;
     align-items: end;
     justify-content: space-between;
-    border-bottom: 1px solid hsl(0 0% 82% / 1);
     margin: 20px 0;
 }
 

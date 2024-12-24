@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Додати гроші у банку
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="box">
+          <h2 class="box__title text-center fs-3">Додати гроші у банку</h2>
+          <form method="post">
+            {% csrf_token %}
+            <div class="input-group has-validation mb-3">
+              <div class="form-floating {% if form.amount.errors %}is-invalid{% endif %}">
+                <input type="number" name="amount" class="form-control" value="{% if form.amount.value %}{{ form.amount.value }}{% endif %}" id="id_amount" placeholder="" required />
+                <label for="id_amount">Сума поповнення:</label>
+              </div>
+              {% if form.amount.errors %}
+                {% for error in form.amount.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+           
+            <button type="submit" class="btn-yellow">Додати</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

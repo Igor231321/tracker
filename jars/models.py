@@ -1,7 +1,8 @@
-from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
 from unidecode import unidecode
+
+from users.models import User
 
 
 class Jar(models.Model):

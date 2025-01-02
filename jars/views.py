@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -6,10 +7,13 @@ from jars.forms import JarCreateForm, JarOperationCreateForm
 from jars.models import Jar
 
 
-class JarsListView(generic.ListView):
+class JarsListView(LoginRequiredMixin, generic.ListView):
     model = Jar
     template_name = "jars/index.html"
     context_object_name = "jars"
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
 
 class JarCreateView(LoginRequiredMixin, generic.CreateView):
@@ -27,8 +31,11 @@ class JarDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = "jars/detail.html"
     context_object_name = "jar"
 
+    def get_object(self, queryset=None):
+        return get_object_or_404(Jar, user=self.request.user, slug=self.kwargs["slug"])
 
-class JarAddMoney(generic.CreateView):
+
+class JarAddMoney(LoginRequiredMixin, generic.CreateView):
     template_name = 'jars/jar_operation.html'
     form_class = JarOperationCreateForm
     success_url = reverse_lazy("jars:jars_list")

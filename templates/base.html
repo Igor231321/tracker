@@ -8,49 +8,85 @@
 
     <link rel="stylesheet" href="{% static 'css\bootstrap\bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
-    
+
     {% block css %}
 
     {% endblock %}
-    <title>{% block title %} {% endblock %}</title>
+    <title>
+      {% block title %}
+
+      {% endblock %}
+    </title>
   </head>
   <body>
     <header class="header">
       <nav class="nav-container container">
-        <div class="nav-container__left">Лого</div>
-
         <div class="nav-container__menu">
-          {% comment %} <button class="navbar-toggler btn-offcanvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
+          <div class="nav-container__links">
+            <div class="dropdown h-100">
+              <button class="dropbtn h-100">Транзакції
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="currentColor">
+                    <path d="M481-332 226.33-586.67 285.67-646 481-450.67 676.33-646l59.34 59.33L481-332Z"/></svg>
+                </span>
+              </button>
+              <div class="dropdown-content">
+                <a class="sub-link {% if request.resolver_match.view_name == 'tracker:index' %}active{% endif %}" href="{% url 'tracker:index' %}">Історія</a>
+                <a class="sub-link {% if request.resolver_match.view_name == 'tracker:analytics' %}active{% endif %}" href="{% url 'tracker:analytics' %}">Аналітіка</a>
+                <a class="sub-link {% if request.resolver_match.view_name == 'tracker:create' %}active{% endif %}" href="{% url 'tracker:create' %}">Додати транзакцію</a>
+              </div>
+            </div>
+
+            <a class="nav-link {% if 'jars' in request.path %}active{% endif %}" href="{% url 'jars:jars_list' %}">Банки</a>
+            {% if user.is_staff %}
+              <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
+            {% endif %}
+          </div>
+
+          <button class="navbar-toggler btn-offcanvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
             <span>
-              <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#000">
+              <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#fff">
                 <path d="M120-240v-66.67h720V-240H120Zm0-206.67v-66.66h720v66.66H120Zm0-206.66V-720h720v66.67H120Z" />
               </svg>
             </span>
-          </button> {% endcomment %}
+          </button>
+        </div>
 
-          <div class="nav-container__links">
-            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:index' %}active{% endif %}" href="{% url 'tracker:index' %}">Історія</a>
-            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:analytics' %}active{% endif %}" href="{% url 'tracker:analytics' %}">Аналітіка</a>
-            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:create' %}active{% endif %}" href="{% url 'tracker:create' %}">Додати транзакції</a>
-            <a class="nav-link {% if 'jars' in request.path %}active{% endif %}" href="{% url 'jars:jars_list' %}">Банки</a>
-            <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
+        <div class="nav-container__left">
+          <a href="{% url 'tracker:index' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+        </div>
+
+        <div class="nav-container__right">
+          <div class="nav-container__buttons">
+            {% if user.is_authenticated %}
+              <form action="{% url 'users:logout' %}" method="post">
+                {% csrf_token %}
+                <button class="btn-outline-gold" type="submit">Вийти</button>
+              </form>
+            {% else %}
+              <a href="{% url 'users:login' %}" class="btn-outline-gold">Увійти</a>
+            {% endif %}
           </div>
         </div>
       </nav>
 
-      {% comment %} <aside class="offcanvas offcanvas-top h-100" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+      <aside class="offcanvas offcanvas-top h-100" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
         <div class="offcanvas-header mt-3">
           <img src="" alt="Logo" style="max-width: 130px;" />
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
           <div class="nav-container__links--mobile">
-            <a href="" class="nav-link">Каталог</a>
-
-            <a href="" class="nav-link">Доставка</a>
+            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:index' %}active{% endif %}" href="{% url 'tracker:index' %}">Історія</a>
+            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:analytics' %}active{% endif %}" href="{% url 'tracker:analytics' %}">Аналітіка</a>
+            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:create' %}active{% endif %}" href="{% url 'tracker:create' %}">Додати транзакції</a>
+            <a class="nav-link {% if 'jars' in request.path %}active{% endif %}" href="{% url 'jars:jars_list' %}">Банки</a>
+            {% if user.is_staff %}
+              <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
+            {% endif %}
           </div>
         </div>
-      </aside> {% endcomment %}
+      </aside>
     </header>
 
     {% block content %}
@@ -60,6 +96,7 @@
     <script src="{% static 'js/jquery/jquery-3.7.0.min.js' %}"></script>
     <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
 
-    {% block js %}{% endblock js %}
+    {% block js %}
+    {% endblock %}
   </body>
 </html>

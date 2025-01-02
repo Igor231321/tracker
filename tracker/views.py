@@ -1,5 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Case, Count, Sum, Value, When
-from django.db.models.base import Model as Model
 from django.db.models.functions import ExtractMonth
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -9,7 +9,7 @@ from tracker.forms import TransactionForm
 from tracker.models import Category, Status, Transaction
 
 
-class AnalyticsListView(generic.ListView):
+class AnalyticsListView(LoginRequiredMixin, generic.ListView):
     model = Transaction
     template_name = "tracker/analytics.html"
     context_object_name = "transations"
@@ -18,7 +18,7 @@ class AnalyticsListView(generic.ListView):
         context = super().get_context_data(**kwargs)
 
         categories_with_total_income = (
-            Category.objects.income()
+            Category.objects.income().filter(transactions__user=self.request.user)
             .annotate(
                 total_amount=Sum(
                     "transactions__amount",
@@ -30,7 +30,7 @@ class AnalyticsListView(generic.ListView):
         )
 
         categories_with_total_expense = (
-            Category.objects.expense()
+            Category.objects.expense().filter(transactions__user=self.request.user)
             .annotate(
                 total_amount=Sum(
                     "transactions__amount",
@@ -43,12 +43,16 @@ class AnalyticsListView(generic.ListView):
 
         context["categories_with_total_income"] = categories_with_total_income
         context["categories_with_total_expense"] = categories_with_total_expense
-        context["transations_expense_total"] = Transaction.objects.total_expense()
+        context["total_expenses"] = Transaction.objects.total_expense()
+        context["total_income"] = Transaction.objects.total_income()
+        context["user_balance"] = (
+            Transaction.objects.total_income() - Transaction.objects.total_expense()
+        )
 
         return context
 
 
-class CategoryDetailView(generic.DetailView):
+class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
     model = Category
     template_name = "tracker/category.html"
     context_object_name = "category"
@@ -61,7 +65,9 @@ class CategoryDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
 
         if self.object.status == "expense":
-            context["transactions_expense_sum"] = self.object.transactions.total_expense()
+            context["transactions_expense_sum"] = (
+                self.object.transactions.total_expense()
+            )
         else:
             context["transactions_income_sum"] = self.object.transactions.total_income()
 
@@ -69,7 +75,7 @@ class CategoryDetailView(generic.DetailView):
         return context
 
 
-class TransactionCreateView(generic.CreateView):
+class TransactionCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "tracker/create.html"
     form_class = TransactionForm
     success_url = reverse_lazy("tracker:index")
@@ -80,8 +86,13 @@ class TransactionCreateView(generic.CreateView):
         context["status"] = Status.choices
         return context
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
 
-class TransactionListView(generic.ListView):
+        return super().form_valid(form)
+
+
+class TransactionListView(LoginRequiredMixin, generic.ListView):
     template_name = "tracker/index.html"
     context_object_name = "transactions"
 
@@ -91,11 +102,12 @@ class TransactionListView(generic.ListView):
         month = self.request.GET.get("month")
 
         if status == "default" or not status:
-            transactions = Transaction.objects.all()
+            # transactions = Transaction.objects.filter(user=self.request.user)
+            transactions = Transaction.user_transactions.for_user(self.request.user)
         elif status == "income":
-            transactions = Transaction.objects.income()
+            transactions = Transaction.objects.filter(user=self.request.user).income()
         elif status == "expense":
-            transactions = Transaction.objects.expense()
+            transactions = Transaction.objects.filter(user=self.request.user).expense()
 
         if category:
             transactions = transactions.filter(category__slug__in=category)

@@ -16,7 +16,7 @@
         <div class="box rounded-0">
           <div class="col-header">
             <h2>{{ jar.title }}</h2>
-            <a href="{% url 'jars:add_money' jar.slug %}" class="btn btn-outline-success">Поповнити</a>
+            <a href="{% url 'jars:add_money' jar.slug %}" class="btn-green btn-small">Поповнити</a>
           </div>
 
           <div class="box-grey">
@@ -27,7 +27,7 @@
             <div class="progress my-2" role="progressbar" aria-label="Animated striped example" aria-valuenow="{{ jar.progress }}" aria-valuemin="0" aria-valuemax="100">
               <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{ jar.progress }}%">{{ jar.progress }}%</div>
             </div>
-
+            
             <div class="box-grey__info">
               Мета <span>{{ jar.goal }} UAN</span>
             </div>

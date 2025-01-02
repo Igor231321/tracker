@@ -7,12 +7,11 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 
 from django.db import models
+
+# from django.forms import ValidationError
 from django.urls import reverse
 
-
-class Status(models.TextChoices):
-    INCOME = "income", "Надходження"
-    EXPENSE = "expense", "Витрати"
+from users.models import User
 
 
 class CustomQuerySet(models.QuerySet):
@@ -23,10 +22,20 @@ class CustomQuerySet(models.QuerySet):
         return self.filter(status=Status.EXPENSE)
 
     def total_income(self):
-        return self.income().aggregate(total_sum=models.Sum("amount")).get('total_sum')
+        return self.income().aggregate(total_sum=models.Sum("amount")).get("total_sum")
 
     def total_expense(self):
         return self.expense().aggregate(total_sum=models.Sum("amount")).get("total_sum")
+
+
+class UserTransaction(models.Manager):
+    def for_user(self, user):
+        return super().get_queryset().filter(user=user)
+
+
+class Status(models.TextChoices):
+    INCOME = "income", "Надходження"
+    EXPENSE = "expense", "Витрати"
 
 
 class Category(models.Model):
@@ -50,7 +59,7 @@ class Category(models.Model):
         return reverse("tracker:category_detail", args=[self.slug])
 
     def __str__(self):
-        return self.title
+        return f"{self.title} (Тип: {self.get_status_display().lower()})"
 
 
 class Transaction(models.Model):
@@ -70,10 +79,12 @@ class Transaction(models.Model):
         max_length=8,
         choices=Status.choices,
         default=Status.EXPENSE,
-        verbose_name="Статус",
+        verbose_name="Тип (доход/витрата)",
     )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Користувач")
 
     objects = CustomQuerySet().as_manager()
+    user_transactions = UserTransaction()
 
     class Meta:
         db_table = "transaction"
@@ -83,3 +94,17 @@ class Transaction(models.Model):
 
     def __str__(self):
         return self.description
+
+    def save(self, *args, **kwargs):
+        # Проверка, если статус - расход
+        if self.status == Status.EXPENSE:
+            self.user.balance -= self.amount
+
+        elif self.status == Status.INCOME:
+            self.user.balance += self.amount
+
+        # Сохраняем объект пользователя с обновленным балансом
+        self.user.save()
+
+        # Сохраняем саму транзакцию
+        super().save(*args, **kwargs)

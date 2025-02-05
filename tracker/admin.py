@@ -5,8 +5,11 @@ from tracker.models import Category, Transaction
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display: list[str] = ["title"]
+    list_display: list[str] = ["title", "status"]
     prepopulated_fields = {"slug": ["title"]}
+    list_filter = ["status"]
+    list_editable = ["status"]
+    search_fields = ["title"]
 
 
 @admin.register(Transaction)

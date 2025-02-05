@@ -16,6 +16,34 @@ p {
     margin: 0;
 }
 
+.table>:not(caption)>*>* {
+
+    padding: 1rem 1.5rem;
+}
+
+.table-flush tbody>tr:last-child td,
+.table-flush tbody>tr:last-child th {
+    border-bottom: 0;
+}
+
+table {
+    /* border-collapse: collapse; */
+    caption-side: bottom;
+}
+
+.table-flush {
+    --bs-table-bg: transparent;
+}
+
+.fs-sm {
+    font-size: .75rem !important;
+    color: #676f7e !important;
+    font-weight: 400;
+}
+
+.card-header {
+    padding: 1.25rem 1.5rem;
+}
 .gold_link {
     text-underline-offset: 0.375em;
     color: rgba(33, 37, 41, 0.75);
@@ -40,7 +68,6 @@ p {
 .nav-container__left img {
     max-width: 130px;
 }
-
 
 .nav-container {
     display: grid;
@@ -69,7 +96,6 @@ p {
     display: flex;
     gap: 10px;
 }
-
 
 .btn-outline-gold {
     display: inline-block;
@@ -211,8 +237,9 @@ p {
     background: #fff;
     border-radius: 12px;
     padding: 2rem;
-    /* box-shadow: 0 4px 12px #202020; */
-    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, 0.3);
+    border: 1px solid #a7a7a7
+        /* box-shadow: 0 4px 12px #202020; */
+        /* box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, 0.3); */
 }
 
 .box.box-green {
@@ -234,22 +261,24 @@ p {
 
 .btn-green {
     display: inline-block;
-    padding: .6rem 2.75rem;
+    padding: .7rem 2.75rem;
     min-width: 130px;
     color: var(--altbackground);
-    background-color: var(--foreground);
+    background-color: var(--gold);
     transition: all .2s ease;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     font-size: 1.1rem;
     font-weight: 700;
-    border: 3px solid var(--foreground);
+    border: 3px solid var(--gold);
     border-radius: .5rem;
     text-align: center;
     text-decoration: none;
+    color: #000;
 }
 
 .btn-green:hover {
-    color: var(--foreground);
+    /* color: var(--foreground); */
+    color: var(--gold);
     background-color: #fff;
 }
 
@@ -268,38 +297,24 @@ p {
     border: 1px solid #202020;
 }
 
-.arhiv-header {
-    background-color: var(--foreground);
-    color: var(--altbackground);
-    font-size: 1.15rem;
-    padding: 8px;
-    font-weight: 550;
-    text-align: center;
-}
 
-.arhiv-body {
-    padding: 8px;
-    background-color: var(--altbackground);
-}
-
-.arhiv__item {
+.transaction {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    border-radius: 0.35rem;
+    border-left: 5px solid transparent;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
 }
 
-.arhiv__description {
-    font-weight: 700;
+.transaction.is_income {
+    border-color: rgb(34 197 94);
+    background-color: rgb(220 252 231);
 }
 
-.arhiv__amount {
-    font-weight: 700;
-}
-
-.col-header {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    margin: 20px 0;
+.transaction.is_expense {
+    background-color: rgb(254 226 226);
+    border-color: rgb(239 68 68);
 }
 
 .col__title {
@@ -360,10 +375,6 @@ p {
 .card-img-top {
     border-top-left-radius: .75rem;
     border-top-right-radius: .75rem;
-}
-
-.card:hover {
-    background-color: rgb(245, 248, 248);
 }
 
 .card__footer {
@@ -433,4 +444,21 @@ p {
         padding-left: 1rem;
         padding-right: 1rem;
     }
+}
+
+
+/* Custom bootstap */
+
+.card-header {
+    background-color: transparent;
+}
+
+.dropdown-item {
+    font-weight: 500;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #202020;
+    background-color: var(--gold);
+    font-weight: 550;
 }

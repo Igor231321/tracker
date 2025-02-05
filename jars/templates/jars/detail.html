@@ -11,12 +11,19 @@
 
 {% block content %}
   <div class="container mt-5">
+
+   
     <div class="row justify-content-center">
       <div class="col-lg-12">
         <div class="box rounded-0">
-          <div class="col-header">
-            <h2>{{ jar.title }}</h2>
-            <a href="{% url 'jars:add_money' jar.slug %}" class="btn-green btn-small">Поповнити</a>
+          <div class="row align-items-center mb-4">
+            <div class="col">
+              <h1 class="fs-2 fw-semibold mb-0">{{ jar.title }}</h1>
+            </div>
+            <div class="col-12 col-sm-auto mt-4 mt-sm-0">
+              <!-- Action -->
+              <a href="{% url 'jars:add_money' jar.slug %}" class="btn-green btn-small d-block">Поповнити</a>
+            </div>
           </div>
 
           <div class="box-grey">

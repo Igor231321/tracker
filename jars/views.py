@@ -44,6 +44,6 @@ class JarAddMoney(LoginRequiredMixin, generic.CreateView):
         jar_slug = self.kwargs['slug']
         jar = Jar.objects.get(slug=jar_slug)
         form.instance.jar = jar
-        jar.add_money(form.cleaned_data['amount'])
+        form.instance.user = self.request.user
 
         return super().form_valid(form)

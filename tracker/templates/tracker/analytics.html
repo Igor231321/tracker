@@ -5,54 +5,77 @@
   Аналітіка
 {% endblock %}
 
+
 {% block content %}
   <main class="container mt-5">
-    <section class="row g-4">
+    {% comment %}Header{% endcomment %}
+    <div class="row align-items-center mb-4">
+      <div class="col">
+        <h1 class="fs-2 fw-semibold mb-0">Статистика</h1>
+      </div>
+      <div class="col-12 col-lg-auto mt-4 mt-lg-0">       
+        <!-- Action -->
+        <div class="dropdown">
+          <button type="button" class="btn-green btn-small dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+            {{ month_name }} 
+            {{year}}
+          </button>
+          <ul class="dropdown-menu  dropdown-menu-lg-end">
+            {% for date in date_transactions %}
+              <li><a class="dropdown-item {% if month == date|date:"m" and year == date|date:"Y" %}active{% endif %}" href="?date={{ date|date:"m+Y" }}">{{ date|date:"F Y" }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {% comment %}Content{% endcomment %}
+    <div class="row g-3">
       <div class="col-12">
         <div class="box box-green">
-          <div class="row">
-            <div class="col-lg-4 text-center">
-              <p class="box__title">Витрати у грудні</p>
+          <div class="row justify-content-between">
+            <div class="col-4">
+              <p class="box__title">Витрати</p>
               <p class="box__text">{{ total_expenses }} UAN</p>
             </div>
-            <div class="col-lg-4 text-center">
-              <div class="">
-                <p class="box__title">Прибуток у грудні</p>
-                <p class="box__text">{{ total_income }} UAN</p>
-              </div>
-            </div>
-            <div class="col-lg-4 text-center">
-              <div class="">
-                <p class="box__title">Баланс:</p>
-                <p class="box__text">{{ user_balance }} UAN</p>
-              </div>
+           
+            <div class="col-4 text-end">
+              <p class="box__title">Прибуток</p>
+              <p class="box__text">{{ total_income }} UAN</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-6">
-        <div class="box">
-          <h2 class="box__title">Категорії витрат</h2>
-          {% if categories_with_total_expense %}
+      <div class="col-12 col-md-6">
+        <div class="card">
+          {% if categories_expense %}
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="fs-5 fw-bold mb-0">Категорії витрат</h3>
+                </div>
+              </div>
+            </div>
             <div class="table-responsive">
-              <table class="table table-hover">
+              <table class="table table-flush align-middle mb-0">
+                <tbody></tbody>
                 <thead>
                   <tr>
-                    <th scope="col">Категорія</th>
-                    <th scope="col" class="text-center">Транзакції</th>
-                    <th scope="col" class="text-center">Сума</th>
-                    <th scope="col"></th>
+                    <th class="fs-sm">Категорія</th>
+                    <th class="fs-sm text-center">Транзакції</th>
+                    <th class="fs-sm text-center">Сума</th>
+                    <th class="fs-sm" colspan="2"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for category in categories_with_total_expense %}
+                  {% for category in categories_expense %}
                     <tr>
                       <th scope="row" class="fw-normal">{{ category.title }}</th>
                       <td class="text-center">{{ category.total_transactions }}</td>
                       <td class="text-center">-{{ category.total_amount }}</td>
                       <td>
-                        <a href="{% url 'tracker:category_detail' category.slug %}">
+                        <a href="{% url 'tracker:category_detail' category.slug %}" class="btn btn-sm btn-light text-end">
                           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
                             <path d="m501.85-481-186-186L376-727.15 622.15-481 376-234.85 315.85-295l186-186Z" />
                           </svg>
@@ -63,35 +86,43 @@
                 </tbody>
               </table>
             </div>
-
           {% else %}
-            <p>Витрат поки що не має</p>
+            <div class="card-body">
+              <h3 class="fs-4 fw-bold mb-0">Категорій витрат поки що не має</h3>
+            </div>
           {% endif %}
         </div>
       </div>
 
-      <div class="col-lg-6">
-        <div class="box">
-          <h2 class="box__title">Категорії надходжень</h2>
-          {% if categories_with_total_income %}
+      <div class="col-12 col-md-6">
+        <div class="card">
+          {% if categories_income %}
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="fs-5 fw-bold mb-0">Категорії прибутку</h3>
+                </div>
+              </div>
+            </div>
             <div class="table-responsive">
-              <table class="table table-hover">
+              <table class="table table-flush align-middle mb-0">
+                <tbody></tbody>
                 <thead>
                   <tr>
-                    <th scope="col">Категорія</th>
-                    <th scope="col" class="text-center">Транзакції</th>
-                    <th scope="col" class="text-center">Сума</th>
-                    <th scope="col"></th>
+                    <th class="fs-sm">Категорія</th>
+                    <th class="fs-sm text-center">Транзакції</th>
+                    <th class="fs-sm text-center">Сума</th>
+                    <th class="fs-sm" colspan="2"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for category in categories_with_total_income %}
+                  {% for category in categories_income %}
                     <tr>
                       <th scope="row" class="fw-normal">{{ category.title }}</th>
                       <td class="text-center">{{ category.total_transactions }}</td>
-                      <td class="text-green text-center">+{{ category.total_amount }}</td>
+                      <td class="text-center text-green">+{{ category.total_amount }}</td>
                       <td>
-                        <a href="{% url 'tracker:category_detail' category.slug %}">
+                        <a href="{% url 'tracker:category_detail' category.slug %}" class="btn btn-sm btn-light text-end">
                           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
                             <path d="m501.85-481-186-186L376-727.15 622.15-481 376-234.85 315.85-295l186-186Z" />
                           </svg>
@@ -103,10 +134,12 @@
               </table>
             </div>
           {% else %}
-            <p>Надходжень поки що не має</p>
+            <div class="card-body">
+              <h3 class="fs-4 fw-bold mb-0">Категорій доходів поки що не має</h3>
+            </div>
           {% endif %}
         </div>
       </div>
-    </section>
+    </div>
   </main>
 {% endblock %}

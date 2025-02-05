@@ -1,53 +1,54 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Case, Count, Sum, Value, When
-from django.db.models.functions import ExtractMonth
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views import generic
 
 from tracker.forms import TransactionForm
 from tracker.models import Category, Status, Transaction
+from tracker.utils import get_categories, get_month_name
+from django.db.models.functions import TruncDate
+from collections import defaultdict
 
 
-class AnalyticsListView(LoginRequiredMixin, generic.ListView):
-    model = Transaction
+class AnalyticsListView(LoginRequiredMixin, generic.TemplateView):
     template_name = "tracker/analytics.html"
-    context_object_name = "transations"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        categories_with_total_income = (
-            Category.objects.income().filter(transactions__user=self.request.user)
-            .annotate(
-                total_amount=Sum(
-                    "transactions__amount",
-                ),
-                total_transactions=Count("transactions"),
-            )
-            .filter(total_amount__gt=0)
-            .order_by("-total_amount")
+        user = self.request.user
+        date = self.request.GET.get("date")
+
+        if date:
+            date_list = date.split()
+            month = date_list[0]  # Номер месяца
+            year = date_list[1]  # Год
+        else:
+            month = timezone.now().month
+            year = timezone.now().year
+
+        categories_income = get_categories(
+            user=user, status="income", month=month, year=year
+        )
+        categories_expense = get_categories(
+            user=user, status="expense", month=month, year=year
         )
 
-        categories_with_total_expense = (
-            Category.objects.expense().filter(transactions__user=self.request.user)
-            .annotate(
-                total_amount=Sum(
-                    "transactions__amount",
-                ),
-                total_transactions=Count("transactions"),
-            )
-            .filter(total_amount__gt=0)
-            .order_by("-total_amount")
-        )
+        context["categories_income"] = categories_income
+        context["categories_expense"] = categories_expense
+        context["total_expenses"] = Transaction.objects.for_user(
+            user=user, status=Status.EXPENSE, month=month, year=year
+        ).total_sum()
+        context["total_income"] = Transaction.objects.for_user(
+            user=user, status=Status.INCOME, month=month, year=year
+        ).total_sum()
 
-        context["categories_with_total_income"] = categories_with_total_income
-        context["categories_with_total_expense"] = categories_with_total_expense
-        context["total_expenses"] = Transaction.objects.total_expense()
-        context["total_income"] = Transaction.objects.total_income()
-        context["user_balance"] = (
-            Transaction.objects.total_income() - Transaction.objects.total_expense()
-        )
+        context["month"] = month
+        context["year"] = year
+
+        context["month_name"] = get_month_name(month)
+        context["date_transactions"] = Transaction.objects.dates("created_at", "month")
 
         return context
 
@@ -64,14 +65,19 @@ class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        if self.object.status == "expense":
-            context["transactions_expense_sum"] = (
-                self.object.transactions.total_expense()
-            )
-        else:
-            context["transactions_income_sum"] = self.object.transactions.total_income()
+        user = self.request.user
+        transactions = self.object.transactions.for_user(
+            user=user, month=timezone.now().month, year=timezone.now().year
+        )
 
-        context["transactions"] = self.object.transactions.all()
+        if self.object.status == Status.EXPENSE:
+            context["category_expense"] = True
+        else:
+            context["category_income"] = True
+
+        context["transactions"] = transactions
+        context["transactions_total_sum"] = transactions.total_sum()
+
         return context
 
 
@@ -99,71 +105,49 @@ class TransactionListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         status = self.request.GET.get("status")
         category = self.request.GET.getlist("category")
-        month = self.request.GET.get("month")
+        date = self.request.GET.get("date")
 
         if status == "default" or not status:
-            # transactions = Transaction.objects.filter(user=self.request.user)
-            transactions = Transaction.user_transactions.for_user(self.request.user)
+            transactions = Transaction.objects.for_user(user=self.request.user)
         elif status == "income":
-            transactions = Transaction.objects.filter(user=self.request.user).income()
+            transactions = Transaction.objects.for_user(
+                user=self.request.user, status=Status.INCOME
+            )
         elif status == "expense":
-            transactions = Transaction.objects.filter(user=self.request.user).expense()
+            transactions = Transaction.objects.for_user(
+                user=self.request.user, status=Status.EXPENSE
+            )
 
         if category:
             transactions = transactions.filter(category__slug__in=category)
 
-        if month:
-            transactions = transactions.filter(created_at__month=month)
+        if date:
+            try:
+                month, year = map(int, date.split())
+                transactions = transactions.filter(
+                    created_at__month=month, created_at__year=year
+                )
+            except (ValueError, TypeError):
+                pass
 
         return transactions
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        months_dict = {
-            1: "Січень",
-            2: "Лютий",
-            3: "Березень",
-            4: "Квітень",
-            5: "Травень",
-            6: "Червень",
-            7: "Липень",
-            8: "Серпень",
-            9: "Вересень",
-            10: "Жовтень",
-            11: "Листопад",
-            12: "Грудень",
-        }
+        transactions = context["transactions"].annotate(date=TruncDate("created_at"))
 
-        transaction_month = (
-            Transaction.objects.annotate(month_num=ExtractMonth("created_at"))
-            .annotate(
-                month_name=Case(
-                    *[
-                        When(month_num=num, then=Value(name))
-                        for num, name in months_dict.items()
-                    ]
-                )
-            )
-            .values("month_num", "month_name")
-            .distinct()
-            .order_by("month_num")
-        )
-
-        transactions = context["transactions"]
-        grouped_transactions = {}
-
+        # Группировка транзакций по дате
+        grouped_transactions = defaultdict(list)
         for transaction in transactions:
-            created_at_key = transaction.created_at.date()
+            grouped_transactions[transaction.date].append(transaction)
 
-            if created_at_key not in grouped_transactions:
-                grouped_transactions[created_at_key] = []
+        context["grouped_transactions"] = dict(grouped_transactions)
 
-            grouped_transactions[created_at_key].append(transaction)
-
-        context["grouped_transactions"] = grouped_transactions
         context["categorys"] = Category.objects.all()
+        context["date_transactions"] = Transaction.objects.dates("created_at", "month")
+
         context["selected_categorys"] = self.request.GET.getlist("category")
-        context["month"] = int(self.request.GET.get("month", 0))
-        context["months"] = transaction_month
+        if self.request.GET.get("date"):
+            context["date"] = self.request.GET.get("date").split()
         return context

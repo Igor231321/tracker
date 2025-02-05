@@ -7,8 +7,10 @@ from jars.models import Jar, JarOperation
 class JarAdmin(admin.ModelAdmin):
     list_display = ["title", "balance", "user", "goal"]
     prepopulated_fields = {"slug": ["title"]}
+    search_fields = ["title", "balance", "user", "goal"]
 
 
 @admin.register(JarOperation)
 class JarOperationAdmin(admin.ModelAdmin):
-    list_display = ["jar", "amount", "created_at"]
+    list_display = ["jar", "user", "amount", "created_at"]
+    search_fields = ["jar", "user", "amount"]

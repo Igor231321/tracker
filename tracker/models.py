@@ -7,9 +7,9 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 
 from django.db import models
-
 # from django.forms import ValidationError
 from django.urls import reverse
+from django.utils import timezone
 
 from users.models import User
 
@@ -21,16 +21,27 @@ class CustomQuerySet(models.QuerySet):
     def expense(self):
         return self.filter(status=Status.EXPENSE)
 
-    def total_income(self):
-        return self.income().aggregate(total_sum=models.Sum("amount")).get("total_sum")
 
-    def total_expense(self):
-        return self.expense().aggregate(total_sum=models.Sum("amount")).get("total_sum")
+class TransactionQuerySet(models.QuerySet):
+    def for_user(self, user, month=None, year=None, status=None):
+        queryset = self.filter(user=user)
 
+        if month:
+            queryset = queryset.filter(created_at__month=month, created_at__year=year)
+        
+        if status:
+            queryset = queryset.filter(status=status)
 
-class UserTransaction(models.Manager):
-    def for_user(self, user):
-        return super().get_queryset().filter(user=user)
+        return queryset
+
+    def income(self):
+        return self.filter(status=Status.INCOME)
+
+    def expense(self):
+        return self.filter(status=Status.EXPENSE)
+
+    def total_sum(self):
+        return self.aggregate(total_sum=models.Sum("amount")).get("total_sum") or 0
 
 
 class Status(models.TextChoices):
@@ -83,8 +94,7 @@ class Transaction(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Користувач")
 
-    objects = CustomQuerySet().as_manager()
-    user_transactions = UserTransaction()
+    objects = TransactionQuerySet().as_manager()
 
     class Meta:
         db_table = "transaction"

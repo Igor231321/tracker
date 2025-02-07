@@ -1,4 +1,8 @@
+
+from collections import defaultdict
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models.functions import TruncDate
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -7,8 +11,6 @@ from django.views import generic
 from tracker.forms import TransactionForm
 from tracker.models import Category, Status, Transaction
 from tracker.utils import get_categories, get_month_name
-from django.db.models.functions import TruncDate
-from collections import defaultdict
 
 
 class AnalyticsListView(LoginRequiredMixin, generic.TemplateView):
@@ -18,25 +20,15 @@ class AnalyticsListView(LoginRequiredMixin, generic.TemplateView):
         context = super().get_context_data(**kwargs)
 
         user = self.request.user
-        date = self.request.GET.get("date")
+        month = self.request.GET.get("month", timezone.now().strftime("%m"))
+        year = self.request.GET.get("year", timezone.now().strftime("%Y"))
 
-        if date:
-            date_list = date.split()
-            month = date_list[0]  # Номер месяца
-            year = date_list[1]  # Год
-        else:
-            month = timezone.now().month
-            year = timezone.now().year
+        context["month"] = month
+        context["year"] = year
+        context["month_name"] = get_month_name(month)
 
-        categories_income = get_categories(
-            user=user, status="income", month=month, year=year
-        )
-        categories_expense = get_categories(
-            user=user, status="expense", month=month, year=year
-        )
-
-        context["categories_income"] = categories_income
-        context["categories_expense"] = categories_expense
+        context["categories_income"] = get_categories(user=user, status="income", month=month, year=year)
+        context["categories_expense"] = get_categories(user=user, status="expense", month=month, year=year)
         context["total_expenses"] = Transaction.objects.for_user(
             user=user, status=Status.EXPENSE, month=month, year=year
         ).total_sum()
@@ -44,10 +36,6 @@ class AnalyticsListView(LoginRequiredMixin, generic.TemplateView):
             user=user, status=Status.INCOME, month=month, year=year
         ).total_sum()
 
-        context["month"] = month
-        context["year"] = year
-
-        context["month_name"] = get_month_name(month)
         context["date_transactions"] = Transaction.objects.dates("created_at", "month")
 
         return context
@@ -66,8 +54,11 @@ class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
         context = super().get_context_data(**kwargs)
 
         user = self.request.user
+        month = self.request.GET.get("month", timezone.now().strftime("%m"))
+        year = self.request.GET.get("year", timezone.now().strftime("%Y"))
+
         transactions = self.object.transactions.for_user(
-            user=user, month=timezone.now().month, year=timezone.now().year
+            user=user, month=month, year=year
         )
 
         if self.object.status == Status.EXPENSE:

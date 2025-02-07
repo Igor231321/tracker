@@ -44,6 +44,7 @@ table {
 .card-header {
     padding: 1.25rem 1.5rem;
 }
+
 .gold_link {
     text-underline-offset: 0.375em;
     color: rgba(33, 37, 41, 0.75);
@@ -106,15 +107,15 @@ table {
     transition: all .2s ease;
     text-decoration: none;
     color: var(--altbackground);
-    font-weight: 600;
+    font-weight: 650;
     text-transform: uppercase;
-    letter-spacing: .42px;
+    letter-spacing: 1px;
     background: transparent;
 }
 
 .btn-outline-gold:hover {
     background: var(--gold);
-
+    color: #202020;
 }
 
 .nav-container__links {
@@ -453,12 +454,48 @@ table {
     background-color: transparent;
 }
 
-.dropdown-item {
-    font-weight: 500;
+.dropdown-menu {
+    --bs-dropdown-min-width: 12rem;
+    --bs-dropdown-padding-x: 0.25rem;
+    --bs-dropdown-padding-y: 0.25rem;
+    --bs-dropdown-spacer: 0.125rem;
+    --bs-dropdown-font-size: 1rem;
+    --bs-dropdown-color: var(--bs-body-color);
+    --bs-dropdown-bg: var(--bs-body-bg);
+    --bs-dropdown-border-color: var(--bs-border-color-translucent);
+    --bs-dropdown-border-radius: var(--bs-border-radius);
+    --bs-dropdown-border-width: var(--bs-border-width);
+    --bs-dropdown-inner-border-radius: calc(var(--bs-border-radius) - var(--bs-border-width));
+    --bs-dropdown-divider-bg: var(--bs-border-color-translucent);
+    --bs-dropdown-divider-margin-y: 0.5rem;
+    --bs-dropdown-box-shadow: var(--bs-box-shadow);
+    --bs-dropdown-link-color: var(--bs-body-color);
+    --bs-dropdown-link-hover-color: var(--bs-body-color);
+    --bs-dropdown-link-hover-bg: hsl(240, 7%, 93%);
+    --bs-dropdown-link-active-color: #202020;
+    --bs-dropdown-link-active-bg: var(--gold);
+    --bs-dropdown-item-padding-x: 1rem;
+    --bs-dropdown-item-padding-y: 0.75rem;
+
+
+    /* position: absolute;
+    z-index: var(--bs-dropdown-zindex);
+    display: none;
+    min-width: var(--bs-dropdown-min-width);
+    padding: var(--bs-dropdown-padding-y) var(--bs-dropdown-padding-x);
+    margin: 0;
+    font-size: var(--bs-dropdown-font-size);
+    color: var(--bs-dropdown-color);
+    text-align: left;
+    list-style: none;
+    background-color: var(--bs-dropdown-bg);
+    background-clip: padding-box;
+    border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
+    border-radius: var(--bs-dropdown-border-radius); */
+    font-weight: 600;
+    --bs-dropdown-item-border-radius: calc(.5rem - 1px);
 }
 
-.dropdown-item.active, .dropdown-item:active {
-    color: #202020;
-    background-color: var(--gold);
-    font-weight: 550;
+.dropdown-item:active {
+    /* background-color: #dbdde1; */
 }

@@ -1,6 +1,4 @@
-from django.db.models import Q
 from django.db.models import Count, Sum
-from django.utils import timezone
 
 from tracker.models import Category
 

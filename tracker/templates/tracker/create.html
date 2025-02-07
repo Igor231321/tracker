@@ -29,7 +29,7 @@
             
             <div class="input-group has-validation mb-3">
               <div class="form-floating {% if form.amount.errors %}is-invalid{% endif %}">
-                <input type="number" class="form-control {% if form.amount.errors %}is-invalid{% endif %}" name="amount" id="id_amount" required placeholder="" step="0.01" />
+                <input type="number" class="form-control {% if form.amount.errors %}is-invalid{% endif %}" name="amount" value="{% if form.amount.value %}{{ form.amount.value }}{% endif %}"id="id_amount" required placeholder="" step="0.01" />
                 <label for="id_amount">Количество:</label>
               </div>
               {% if form.amount.errors %}
@@ -101,13 +101,14 @@
     $(document).ready(function () {
       // Инициализация Flatpickr
       $('#id_created_at').flatpickr({
-        dateFormat: 'Y-m-d H:i', // Добавляем время в формат
+        dateFormat: 'Y-m-d H:i', // Формат: DD-MM-YYYY HH:MM
         locale: 'uk',  // Украинская локализация
         allowInput: true, // Разрешить ввод даты вручную
         maxDate: 'today', // Запрещает ввод дат в будущем
         enableTime: true, // Разрешить выбор времени
         noCalendar: false, // Включить календарь
         time_24hr: true, // 24-часовой формат времени
+        defaultDate: 'today',  // Поточна дата
       });
     });
   </script>

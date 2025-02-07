@@ -5,7 +5,6 @@
   Аналітіка
 {% endblock %}
 
-
 {% block content %}
   <main class="container mt-5">
     {% comment %}Header{% endcomment %}
@@ -13,16 +12,24 @@
       <div class="col">
         <h1 class="fs-2 fw-semibold mb-0">Статистика</h1>
       </div>
-      <div class="col-12 col-lg-auto mt-4 mt-lg-0">       
+      <div class="col-12 col-lg-auto mt-4 mt-lg-0">
         <!-- Action -->
         <div class="dropdown">
           <button type="button" class="btn-green btn-small dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-            {{ month_name }} 
-            {{year}}
+            {{ month_name }}
+            {{ year }}
           </button>
-          <ul class="dropdown-menu  dropdown-menu-lg-end">
+
+          <ul class="dropdown-menu dropdown-menu-lg-end">
             {% for date in date_transactions %}
-              <li><a class="dropdown-item {% if month == date|date:"m" and year == date|date:"Y" %}active{% endif %}" href="?date={{ date|date:"m+Y" }}">{{ date|date:"F Y" }}</a></li>
+              <li>
+                <a class="dropdown-item 
+                  {% if month == date|date:"m" and year == date|date:"Y" %}
+                      active
+                  {% endif %}"
+                  href="?month={{ date|date:"m" }}&year={{ date|date:"Y"}}">{{ date|date:'F Y' }}
+                </a>
+              </li>
             {% endfor %}
           </ul>
         </div>
@@ -38,7 +45,7 @@
               <p class="box__title">Витрати</p>
               <p class="box__text">{{ total_expenses }} UAN</p>
             </div>
-           
+
             <div class="col-4 text-end">
               <p class="box__title">Прибуток</p>
               <p class="box__text">{{ total_income }} UAN</p>
@@ -75,7 +82,7 @@
                       <td class="text-center">{{ category.total_transactions }}</td>
                       <td class="text-center">-{{ category.total_amount }}</td>
                       <td>
-                        <a href="{% url 'tracker:category_detail' category.slug %}" class="btn btn-sm btn-light text-end">
+                        <a href="{% url 'tracker:category_detail' category.slug %}?month={{ month }}&year={{ year }}" class="btn btn-sm btn-light text-end">
                           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
                             <path d="m501.85-481-186-186L376-727.15 622.15-481 376-234.85 315.85-295l186-186Z" />
                           </svg>
@@ -122,7 +129,7 @@
                       <td class="text-center">{{ category.total_transactions }}</td>
                       <td class="text-center text-green">+{{ category.total_amount }}</td>
                       <td>
-                        <a href="{% url 'tracker:category_detail' category.slug %}" class="btn btn-sm btn-light text-end">
+                        <a href="{% url 'tracker:category_detail' category.slug %}?month={{ month }}&year={{ year }}" class="btn btn-sm btn-light text-end">
                           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
                             <path d="m501.85-481-186-186L376-727.15 622.15-481 376-234.85 315.85-295l186-186Z" />
                           </svg>

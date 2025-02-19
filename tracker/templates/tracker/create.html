@@ -8,7 +8,7 @@
 {% block title %}Додати транзакцію{% endblock title %}
 
 {% block content %}
-  <div class="container mt-5">
+  <section class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="box">
@@ -30,7 +30,7 @@
             <div class="input-group has-validation mb-3">
               <div class="form-floating {% if form.amount.errors %}is-invalid{% endif %}">
                 <input type="number" class="form-control {% if form.amount.errors %}is-invalid{% endif %}" name="amount" value="{% if form.amount.value %}{{ form.amount.value }}{% endif %}"id="id_amount" required placeholder="" step="0.01" />
-                <label for="id_amount">Количество:</label>
+                <label for="id_amount">Сума:</label>
               </div>
               {% if form.amount.errors %}
                 {% for error in form.amount.errors %}
@@ -84,12 +84,12 @@
               {% endif %}
             </div>
 
-            <button type="submit" class="btn-green">Додати</button>
+            <button type="submit" class="btn-gold">Додати</button>
           </form>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 {% endblock %}
 
 {% block js %}

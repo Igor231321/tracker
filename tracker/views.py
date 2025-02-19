@@ -2,6 +2,7 @@
 from collections import defaultdict
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models.functions import TruncDate
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -72,10 +73,11 @@ class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
         return context
 
 
-class TransactionCreateView(LoginRequiredMixin, generic.CreateView):
+class TransactionCreateView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     template_name = "tracker/create.html"
     form_class = TransactionForm
-    success_url = reverse_lazy("tracker:index")
+    success_url = reverse_lazy("tracker:create")
+    success_message = "Транзакція успішно добавлена"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

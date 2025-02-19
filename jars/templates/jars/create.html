@@ -6,11 +6,12 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container mt-5">
+  <section class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="box">
           <h2 class="box__title text-center fs-3">Створити банку</h2>
+
           <form action="{% url 'jars:create' %}" method="post">
             {% csrf_token %}
             <div class="input-group has-validation mb-3">
@@ -35,12 +36,11 @@
                   <div class="invalid-feedback">{{ error }}</div>
                 {% endfor %}
               {% endif %}
-            </div> 
-            {% comment %} {{ form.as_p }} {% endcomment %}
-            <button type="submit" class="btn-green">Додати</button>
+            </div>
+            <button type="submit" class="btn-gold">Додати</button>
           </form>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 {% endblock %}

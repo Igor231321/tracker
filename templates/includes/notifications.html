@@ -1,0 +1,27 @@
+{% load static %}
+
+{% if form.non_field_errors %}
+  <!-- Вывод общих ошибок формы -->
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ form.non_field_errors }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endif %}
+
+{% if messages %}
+  <!-- Контейнер для Toast сообщений -->
+  <div class="toast-container position-fixed start-50 translate-middle p-3">
+    {% for message in messages %}
+        <div id="liveToast" class="toast " role="alert" aria-live="assertive" aria-atomic="true">
+          <div id="liveToast" class="toast border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header" style="background-color: var(--foreground); color: aliceblue;">
+              <strong class="me-auto">Bank</strong>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body fw-semibold">
+            {{ message }}
+            </div>
+        </div>    
+    {% endfor %}
+  </div>
+{% endif %}

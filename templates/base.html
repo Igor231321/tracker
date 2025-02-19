@@ -89,13 +89,32 @@
       </aside>
     </header>
 
-    {% block content %}
-
-    {% endblock %}
+    <main class="main mt-5">
+      <div class="container">
+        <div class="row justify-content-center ">
+          <div class="col-md-12 col-lg-6">
+            {% include 'includes/notifications.html' %}
+          </div>
+        </div>
+      </div>
+      {% block content %}
+        
+      {% endblock %}
+    </main>
 
     <script src="{% static 'js/jquery/jquery-3.7.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ajax.js' %}"></script>
     <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
-
+    <script>
+      var toastElements = document.querySelectorAll('.toast');
+      var toastList = [...toastElements].map(function (toastEl) {
+          return new bootstrap.Toast(toastEl);
+      });
+      
+      toastList.forEach(function (toast) {
+          toast.show();
+      });
+    </script>
     {% block js %}
     {% endblock %}
   </body>

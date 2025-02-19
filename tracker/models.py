@@ -75,7 +75,7 @@ class Category(models.Model):
 
 class Transaction(models.Model):
     amount = models.DecimalField(
-        max_digits=10, decimal_places=2, verbose_name="Количество"
+        max_digits=10, decimal_places=2, verbose_name="Сумма"
     )
     description = models.CharField("Опис", max_length=50)
     created_at = models.DateTimeField(verbose_name="Дата")

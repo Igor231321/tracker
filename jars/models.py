@@ -8,13 +8,17 @@ from users.models import User
 class Jar(models.Model):
     class Status(models.TextChoices):
         EMPTY = "E", "Пуста"
-        HAS_MONEY = "HM", "Є гроші"
         FULL = "F", "Заповнена"
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Користувач")
     title = models.CharField(max_length=155)
     slug = models.SlugField(unique=True, max_length=155, verbose_name="SLUG_URL")
-    status = models.CharField(choices=Status.choices, default=Status.EMPTY, max_length=2, verbose_name="Статус")
+    status = models.CharField(
+        choices=Status.choices,
+        default=Status.EMPTY,
+        max_length=2,
+        verbose_name="Статус",
+    )
     balance = models.DecimalField(max_digits=25, decimal_places=2, default=0)
     goal = models.DecimalField(max_digits=25, decimal_places=2)
 
@@ -24,19 +28,21 @@ class Jar(models.Model):
         verbose_name_plural = "Банки"
 
     def __str__(self):
-        return f"{self.title} (Баланс: {self.balance}, Статус: {self.get_status_display()})"    
+        return f"{self.title} (Баланс: {self.balance}, Статус: {self.get_status_display()})"
 
     def add_money(self, amount):
         self.balance += amount
-        if self.balance > 0 and self.status != Jar.Status.HAS_MONEY:
-            self.status = Jar.Status.HAS_MONEY
-        
+        if self.balance == self.goal:
+            self.status = Jar.Status.FULL
         self.save()
 
     def progress(self):
         if self.balance == 0:
             return 0
         return int((self.balance / self.goal) * 100)
+
+    def remaining_amount(self):
+        return self.goal - self.balance
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -45,7 +51,9 @@ class Jar(models.Model):
 
 
 class JarOperation(models.Model):
-    jar = models.ForeignKey(Jar, on_delete=models.CASCADE, verbose_name="Банка")
+    jar = models.ForeignKey(
+        Jar, on_delete=models.CASCADE, verbose_name="Банка", related_name="operations"
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Користувач")
     amount = models.DecimalField(
         max_digits=50, decimal_places=2, verbose_name="Кількість грошей"

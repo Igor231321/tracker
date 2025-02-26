@@ -106,5 +106,14 @@
             "slug": "kafe-i-restorany",
             "status": "expense"
         }
+    },
+    {
+        "model": "tracker.category",
+        "pk": 13,
+        "fields": {
+            "title": "Такси",
+            "slug": "taksi",
+            "status": "expense"
+        }
     }
 ]

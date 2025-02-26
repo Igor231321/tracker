@@ -41,23 +41,23 @@
       </div>
 
       {% comment %}Content{% endcomment %}
-      <div class="row row-cols-1 row-cols-md-2 g-1 mb-3">
+      <div class="row row-cols-1 row-cols-md-3 g-1 mb-3">
         <div class="col">
           <div class="stats is_first">
             <p class="stats__number">{{ total_expenses|format_number }} UAN</p>
             <p class="stats__text">Витрати</p> 
           </div>
         </div>
-        {% comment %} <div class="col">
+        <div class="col">
           <div class="stats">
             <p class="stats__number">{{ total_income|format_number }} UAN</p>
             <p class="stats__text">Прибуток</p> 
           </div>
-        </div> {% endcomment %}
+        </div>
         <div class="col">
           <div class="stats is_last">
-            <p class="stats__number">{{ total_income|format_number }} UAN</p>
-            <p class="stats__text">Прибуток</p> 
+            <p class="stats__number">{{ total_balance|format_number }} UAN</p>
+            <p class="stats__text">Баланс</p> 
           </div>
         </div>
       </div>

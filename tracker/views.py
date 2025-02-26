@@ -4,6 +4,7 @@ from collections import defaultdict
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models.functions import TruncDate
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -38,7 +39,7 @@ class AnalyticsListView(LoginRequiredMixin, generic.TemplateView):
         ).total_sum()
 
         context["date_transactions"] = Transaction.objects.dates("created_at", "month")
-
+        context["total_balance"] = context["total_income"] - context["total_expenses"]
         return context
 
 

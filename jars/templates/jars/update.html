@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Змінити банку
+{% endblock %}
+
+{% block content %}
+  <section class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="box">
+          <h2 class="box__title text-center fs-3">Змінити банку</h2>
+
+          <form action="{% url 'jars:update' jar.slug %}" method="post">
+            {% csrf_token %}
+            <div class="input-group has-validation mb-3">
+              <div class="form-floating {% if form.title.errors %}is-invalid{% endif %}">
+                <input type="text" name="title" class="form-control" value="{% if form.title.value %}{{ form.title.value }}{% endif %}" id="id_title" placeholder="" required />
+                <label for="id_title">Накопичуємо на:</label>
+              </div>
+              {% if form.title.errors %}
+                {% for error in form.title.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <div class="input-group has-validation mb-3">
+              <div class="form-floating {% if form.goal.errors %}is-invalid{% endif %}">
+                <input type="number" name="goal" class="form-control" value="{% if form.goal.value %}{{ form.goal.value|floatformat }}{% endif %}" step="0.01" required="" id="id_goal">
+                <label for="id_goal">Цель:</label>
+              </div>
+              {% if form.goal.errors %}
+                {% for error in form.goal.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <button type="submit" class="btn-gold">Зберегти</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}Поповнити

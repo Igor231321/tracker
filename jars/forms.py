@@ -25,3 +25,9 @@ class JarOperationCreateForm(forms.ModelForm):
         if amount + jar.balance > jar.goal:
             raise forms.ValidationError(f"Максимальна сума поповнення банки: {intcomma(round(jar.remaining_amount()))}")
         return amount
+
+
+class JarUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Jar
+        fields = ['title', "goal"]

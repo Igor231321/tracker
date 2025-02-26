@@ -1,0 +1,1322 @@
+[
+    {
+        "model": "tracker.transaction",
+        "pk": 6,
+        "fields": {
+            "amount": "124.01",
+            "description": "Простор, носки и расческа",
+            "created_at": "2024-12-25T10:39:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 7,
+        "fields": {
+            "amount": "100.01",
+            "description": "Агромол",
+            "created_at": "2024-12-24T17:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 8,
+        "fields": {
+            "amount": "685.01",
+            "description": "Торт для бабушки и дедушки",
+            "created_at": "2024-12-24T11:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 9,
+        "fields": {
+            "amount": "632.01",
+            "description": "Курс арена от Войтенко",
+            "created_at": "2024-12-23T20:45:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 10,
+        "fields": {
+            "amount": "45.01",
+            "description": "Посад, 2 шоколадки",
+            "created_at": "2024-12-23T19:39:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 11,
+        "fields": {
+            "amount": "800.01",
+            "description": "Пилинг",
+            "created_at": "2024-12-22T07:55:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 12,
+        "fields": {
+            "amount": "528.01",
+            "description": "Торт для колег на работу",
+            "created_at": "2024-12-21T07:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 14,
+        "fields": {
+            "amount": "3300.01",
+            "description": "ЗП",
+            "created_at": "2024-12-21T16:46:12Z",
+            "category": 3,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 15,
+        "fields": {
+            "amount": "1000.00",
+            "description": "Подарок от Buffet",
+            "created_at": "2024-12-21T09:00:00Z",
+            "category": 6,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 16,
+        "fields": {
+            "amount": "1042.00",
+            "description": "Mafia",
+            "created_at": "2024-12-21T15:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 17,
+        "fields": {
+            "amount": "70.00",
+            "description": "Ролл из буфета",
+            "created_at": "2024-12-21T16:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 18,
+        "fields": {
+            "amount": "39.00",
+            "description": "Кулиничи",
+            "created_at": "2024-12-18T10:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 19,
+        "fields": {
+            "amount": "510.00",
+            "description": "Барбер",
+            "created_at": "2024-12-18T13:00:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 20,
+        "fields": {
+            "amount": "78.00",
+            "description": "Кешбек Mono",
+            "created_at": "2024-12-15T22:00:00Z",
+            "category": 9,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 21,
+        "fields": {
+            "amount": "47.00",
+            "description": "Посад, Bounty",
+            "created_at": "2024-12-16T10:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 22,
+        "fields": {
+            "amount": "600.00",
+            "description": "Покупка лаб по Рт",
+            "created_at": "2024-12-15T12:00:00Z",
+            "category": 8,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 23,
+        "fields": {
+            "amount": "100.00",
+            "description": "Агромол",
+            "created_at": "2024-12-15T01:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 24,
+        "fields": {
+            "amount": "745.00",
+            "description": "ОЗУ 8гб",
+            "created_at": "2024-12-15T15:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 25,
+        "fields": {
+            "amount": "1100.00",
+            "description": "Покупка МКРС",
+            "created_at": "2024-12-11T14:00:00Z",
+            "category": 8,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 26,
+        "fields": {
+            "amount": "45.00",
+            "description": "Посад",
+            "created_at": "2024-12-09T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 27,
+        "fields": {
+            "amount": "1650.00",
+            "description": "Пилинг + 3 средство (Уход)",
+            "created_at": "2024-12-09T22:00:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 28,
+        "fields": {
+            "amount": "2000.00",
+            "description": "ВПО",
+            "created_at": "2024-12-19T22:00:00Z",
+            "category": 4,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 30,
+        "fields": {
+            "amount": "1264.00",
+            "description": "Стипендия",
+            "created_at": "2024-12-24T22:00:00Z",
+            "category": 5,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 31,
+        "fields": {
+            "amount": "5800.00",
+            "description": "ЗП",
+            "created_at": "2024-12-16T22:00:00Z",
+            "category": 3,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 35,
+        "fields": {
+            "amount": "23.00",
+            "description": "Кешбек Приват",
+            "created_at": "2024-12-04T22:00:00Z",
+            "category": 9,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 36,
+        "fields": {
+            "amount": "500.00",
+            "description": "Подарок для Димы",
+            "created_at": "2024-12-26T09:00:00Z",
+            "category": 6,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 37,
+        "fields": {
+            "amount": "146.60",
+            "description": "2 пары носков",
+            "created_at": "2024-12-26T10:00:00Z",
+            "category": 11,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 38,
+        "fields": {
+            "amount": "3300.00",
+            "description": "Зарплата",
+            "created_at": "2024-12-29T12:00:00Z",
+            "category": 3,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 39,
+        "fields": {
+            "amount": "500.00",
+            "description": "Подарок Матвею",
+            "created_at": "2024-12-29T14:00:00Z",
+            "category": 10,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 40,
+        "fields": {
+            "amount": "73.00",
+            "description": "Носки",
+            "created_at": "2024-12-31T08:00:00Z",
+            "category": 11,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 41,
+        "fields": {
+            "amount": "300.00",
+            "description": "Чехол для нового телефона",
+            "created_at": "2024-12-31T07:00:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 42,
+        "fields": {
+            "amount": "86.00",
+            "description": "Свидание с Аней",
+            "created_at": "2024-12-31T12:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 44,
+        "fields": {
+            "amount": "1200.00",
+            "description": "Цветы",
+            "created_at": "2025-01-09T18:00:00Z",
+            "category": 10,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 45,
+        "fields": {
+            "amount": "7600.00",
+            "description": "Зарплата",
+            "created_at": "2025-01-09T17:00:00Z",
+            "category": 3,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 46,
+        "fields": {
+            "amount": "206.00",
+            "description": "Свидание с Аней",
+            "created_at": "2025-01-07T12:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 47,
+        "fields": {
+            "amount": "21.00",
+            "description": "Bounty",
+            "created_at": "2025-01-08T19:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 48,
+        "fields": {
+            "amount": "42.00",
+            "description": "Вода",
+            "created_at": "2025-01-09T18:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 49,
+        "fields": {
+            "amount": "1300.00",
+            "description": "Нижнее белье",
+            "created_at": "2025-01-11T13:00:00Z",
+            "category": 11,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 50,
+        "fields": {
+            "amount": "21.00",
+            "description": "Bounty",
+            "created_at": "2025-01-11T10:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 51,
+        "fields": {
+            "amount": "122.00",
+            "description": "Eva, носки",
+            "created_at": "2025-01-11T10:00:00Z",
+            "category": 11,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 52,
+        "fields": {
+            "amount": "745.00",
+            "description": "Свидание с Аней",
+            "created_at": "2025-01-12T14:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 53,
+        "fields": {
+            "amount": "97.00",
+            "description": "Кешбек Mono",
+            "created_at": "2025-01-13T13:00:00Z",
+            "category": 9,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 54,
+        "fields": {
+            "amount": "550.00",
+            "description": "Барбер",
+            "created_at": "2025-01-15T17:00:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 55,
+        "fields": {
+            "amount": "486.00",
+            "description": "Аренда квартиры",
+            "created_at": "2025-01-16T15:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 56,
+        "fields": {
+            "amount": "185.00",
+            "description": "Еда из буфета",
+            "created_at": "2025-01-16T10:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 57,
+        "fields": {
+            "amount": "49.00",
+            "description": "2 bounty",
+            "created_at": "2025-01-17T10:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 58,
+        "fields": {
+            "amount": "500.00",
+            "description": "Лубрикант",
+            "created_at": "2025-01-15T19:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 59,
+        "fields": {
+            "amount": "200.00",
+            "description": "Такси на работу'",
+            "created_at": "2025-01-18T06:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 60,
+        "fields": {
+            "amount": "80.00",
+            "description": "Оплата посылки",
+            "created_at": "2025-01-19T16:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 61,
+        "fields": {
+            "amount": "39.00",
+            "description": "Кулиничи",
+            "created_at": "2025-01-20T12:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 62,
+        "fields": {
+            "amount": "1914.00",
+            "description": "\"Поколение Python\" Курс по ООП",
+            "created_at": "2025-01-22T14:00:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 63,
+        "fields": {
+            "amount": "103.00",
+            "description": "Eva",
+            "created_at": "2025-01-21T14:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 64,
+        "fields": {
+            "amount": "534.00",
+            "description": "Аренда квартиры",
+            "created_at": "2025-01-24T17:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 65,
+        "fields": {
+            "amount": "133.00",
+            "description": "Сильпо",
+            "created_at": "2025-01-24T21:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 66,
+        "fields": {
+            "amount": "635.00",
+            "description": "Курс \"Арена Войтенко\"",
+            "created_at": "2025-01-23T22:00:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 67,
+        "fields": {
+            "amount": "53.00",
+            "description": "Кулиничи",
+            "created_at": "2025-01-24T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 68,
+        "fields": {
+            "amount": "28.00",
+            "description": "Аттика, вода",
+            "created_at": "2025-01-24T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 69,
+        "fields": {
+            "amount": "150.00",
+            "description": "Буфет",
+            "created_at": "2025-01-24T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 70,
+        "fields": {
+            "amount": "180.50",
+            "description": "Еда из Аттики, посада",
+            "created_at": "2025-01-08T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 71,
+        "fields": {
+            "amount": "286.00",
+            "description": "Буфет",
+            "created_at": "2025-01-15T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 72,
+        "fields": {
+            "amount": "2000.00",
+            "description": "ВПО",
+            "created_at": "2025-01-16T22:00:00Z",
+            "category": 4,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 73,
+        "fields": {
+            "amount": "113.00",
+            "description": "Кулиничи",
+            "created_at": "2025-01-16T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 74,
+        "fields": {
+            "amount": "2714.00",
+            "description": "Клавіатура",
+            "created_at": "2025-01-18T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 75,
+        "fields": {
+            "amount": "800.00",
+            "description": "Чистка лица",
+            "created_at": "2025-01-19T22:00:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 76,
+        "fields": {
+            "amount": "77.00",
+            "description": "Еда",
+            "created_at": "2025-01-20T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 77,
+        "fields": {
+            "amount": "30.00",
+            "description": "Вода из зала",
+            "created_at": "2025-01-20T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 78,
+        "fields": {
+            "amount": "1168.00",
+            "description": "Стипендия",
+            "created_at": "2025-01-22T22:00:00Z",
+            "category": 5,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 79,
+        "fields": {
+            "amount": "35.00",
+            "description": "Страховка в привате",
+            "created_at": "2025-01-23T22:00:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 80,
+        "fields": {
+            "amount": "208.00",
+            "description": "Кино",
+            "created_at": "2025-01-23T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 81,
+        "fields": {
+            "amount": "400.00",
+            "description": "Еда из буфета",
+            "created_at": "2025-01-23T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 82,
+        "fields": {
+            "amount": "3400.00",
+            "description": "ЗП",
+            "created_at": "2025-01-26T19:00:00Z",
+            "category": 3,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 83,
+        "fields": {
+            "amount": "140.00",
+            "description": "Такси",
+            "created_at": "2025-01-28T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 84,
+        "fields": {
+            "amount": "59.00",
+            "description": "Атб, батончик Bounty",
+            "created_at": "2025-01-29T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 85,
+        "fields": {
+            "amount": "154.00",
+            "description": "Колбасы из салтовского",
+            "created_at": "2025-01-29T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 86,
+        "fields": {
+            "amount": "154.00",
+            "description": "Колбасы из салтовского",
+            "created_at": "2025-01-29T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 87,
+        "fields": {
+            "amount": "1323.00",
+            "description": "Свидание с Аней",
+            "created_at": "2025-01-31T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 88,
+        "fields": {
+            "amount": "530.00",
+            "description": "Свидание с Аней",
+            "created_at": "2025-02-03T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 89,
+        "fields": {
+            "amount": "2800.00",
+            "description": "Абонемент в зале",
+            "created_at": "2025-02-01T22:00:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 90,
+        "fields": {
+            "amount": "78.00",
+            "description": "Аврора, подарок для мамы",
+            "created_at": "2025-01-31T22:00:00Z",
+            "category": 10,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 91,
+        "fields": {
+            "amount": "66.00",
+            "description": "Посылка из Новой Почты",
+            "created_at": "2025-01-31T22:00:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 92,
+        "fields": {
+            "amount": "17.00",
+            "description": "Посад, Bounty",
+            "created_at": "2025-01-31T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 93,
+        "fields": {
+            "amount": "60.00",
+            "description": "Класс",
+            "created_at": "2025-01-30T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 94,
+        "fields": {
+            "amount": "662.00",
+            "description": "Свидание с Аней",
+            "created_at": "2025-01-28T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 95,
+        "fields": {
+            "amount": "24.00",
+            "description": "Посад",
+            "created_at": "2025-01-28T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 96,
+        "fields": {
+            "amount": "31.00",
+            "description": "Кешбек Приват",
+            "created_at": "2025-01-27T22:00:00Z",
+            "category": 9,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 97,
+        "fields": {
+            "amount": "90.00",
+            "description": "Посад",
+            "created_at": "2025-02-04T10:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 98,
+        "fields": {
+            "amount": "30.00",
+            "description": "АТБ",
+            "created_at": "2025-02-03T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 99,
+        "fields": {
+            "amount": "15.00",
+            "description": "Вел март, хлеб",
+            "created_at": "2025-02-05T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 100,
+        "fields": {
+            "amount": "147.00",
+            "description": "EVA, пена для лица",
+            "created_at": "2025-02-05T22:00:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 101,
+        "fields": {
+            "amount": "887.00",
+            "description": "Craft & Myasoedov",
+            "created_at": "2025-02-05T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 103,
+        "fields": {
+            "amount": "4000.00",
+            "description": "ЗП",
+            "created_at": "2025-02-08T19:00:00Z",
+            "category": 3,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 104,
+        "fields": {
+            "amount": "370.00",
+            "description": "Skyn",
+            "created_at": "2025-02-06T22:00:00Z",
+            "category": 7,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 105,
+        "fields": {
+            "amount": "105.00",
+            "description": "Творог из Агромола",
+            "created_at": "2025-02-06T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 106,
+        "fields": {
+            "amount": "1043.00",
+            "description": "Подарок Ане на 14 февраля",
+            "created_at": "2025-02-08T22:00:00Z",
+            "category": 10,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 107,
+        "fields": {
+            "amount": "15.00",
+            "description": "Хлеб",
+            "created_at": "2025-02-08T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 108,
+        "fields": {
+            "amount": "150.00",
+            "description": "Кофе",
+            "created_at": "2025-02-08T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 109,
+        "fields": {
+            "amount": "79.00",
+            "description": "Кулиничи",
+            "created_at": "2025-02-08T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 110,
+        "fields": {
+            "amount": "200.00",
+            "description": "Творог из Агромола",
+            "created_at": "2025-02-08T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 111,
+        "fields": {
+            "amount": "80.00",
+            "description": "Посылка",
+            "created_at": "2025-02-11T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 112,
+        "fields": {
+            "amount": "43.00",
+            "description": "Кофе",
+            "created_at": "2025-02-11T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 113,
+        "fields": {
+            "amount": "111.00",
+            "description": "Такси",
+            "created_at": "2025-02-11T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 114,
+        "fields": {
+            "amount": "118.00",
+            "description": "Буфет управа",
+            "created_at": "2025-02-12T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 115,
+        "fields": {
+            "amount": "32.00",
+            "description": "Батончики",
+            "created_at": "2025-02-12T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 116,
+        "fields": {
+            "amount": "140.00",
+            "description": "Посылка",
+            "created_at": "2025-02-12T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 117,
+        "fields": {
+            "amount": "140.00",
+            "description": "Кафе",
+            "created_at": "2025-02-07T22:00:00Z",
+            "category": 2,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 118,
+        "fields": {
+            "amount": "5400.00",
+            "description": "ЗП",
+            "created_at": "2025-02-13T22:00:00Z",
+            "category": 3,
+            "status": "income",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 119,
+        "fields": {
+            "amount": "142.00",
+            "description": "Такси",
+            "created_at": "2025-02-13T22:00:00Z",
+            "category": 13,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 120,
+        "fields": {
+            "amount": "16.00",
+            "description": "Жвачка",
+            "created_at": "2025-02-13T22:00:00Z",
+            "category": 1,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 121,
+        "fields": {
+            "amount": "650.00",
+            "description": "Подарок Ане на 14 февраля №2",
+            "created_at": "2025-02-13T22:00:00Z",
+            "category": 10,
+            "status": "expense",
+            "user": 2
+        }
+    },
+    {
+        "model": "tracker.transaction",
+        "pk": 122,
+        "fields": {
+            "amount": "2000.00",
+            "description": "ВПО",
+            "created_at": "2025-02-14T22:00:00Z",
+            "category": 4,
+            "status": "income",
+            "user": 2
+        }
+    }
+]

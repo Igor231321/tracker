@@ -7,9 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 
 from django.db import models
-# from django.forms import ValidationError
 from django.urls import reverse
-from django.utils import timezone
 
 from users.models import User
 

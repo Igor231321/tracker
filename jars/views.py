@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
-from jars.forms import JarCreateForm, JarOperationCreateForm
+from jars.forms import JarCreateForm, JarOperationCreateForm, JarUpdateForm
 from jars.models import Jar
 
 
@@ -60,3 +60,11 @@ class JarAddMoney(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
 
         initial["jar"] = Jar.objects.get(slug=self.kwargs["slug"])
         return initial
+
+
+class JarUpdate(generic.UpdateView):
+    model = Jar
+    template_name = "jars/update.html"
+    form_class = JarUpdateForm
+    success_url = reverse_lazy("jars:jars_list")
+    

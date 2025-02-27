@@ -5,10 +5,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap/custom_bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     {% block css %}
 
     {% endblock %}
@@ -19,103 +22,106 @@
     </title>
   </head>
   <body>
-    <header class="header">
-      <nav class="nav-container container">
-        <div class="nav-container__menu">
-          <div class="nav-container__links">
-            <div class="dropdown h-100">
-              <button class="dropbtn h-100">Транзакції
-                <span>
-                  <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="currentColor">
-                    <path d="M481-332 226.33-586.67 285.67-646 481-450.67 676.33-646l59.34 59.33L481-332Z"/></svg>
-                </span>
-              </button>
-              <div class="dropdown-content">
-                <a class="sub-link {% if request.resolver_match.view_name == 'tracker:index' %}active{% endif %}" href="{% url 'tracker:index' %}">Історія</a>
-                <a class="sub-link {% if request.resolver_match.view_name == 'tracker:analytics' %}active{% endif %}" href="{% url 'tracker:analytics' %}">Аналітіка</a>
-                <a class="sub-link {% if request.resolver_match.view_name == 'tracker:create' %}active{% endif %}" href="{% url 'tracker:create' %}">Додати транзакцію</a>
-              </div>
-            </div>
-
-            <a class="nav-link {% if 'jars' in request.path %}active{% endif %}" href="{% url 'jars:jars_list' %}">Банки</a>
-            {% if user.is_staff %}
-              <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
-            {% endif %}
-          </div>
-
-          <button class="navbar-toggler btn-offcanvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#fff">
-                <path d="M120-240v-66.67h720V-240H120Zm0-206.67v-66.66h720v66.66H120Zm0-206.66V-720h720v66.67H120Z" />
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar__header">
+        <button class="sidebar__btn-close" id="closeSidebar">&times;</button>
+      </div>
+      <div class="sidebar__logo">
+        <a href="{% url 'main:index' %}"><img src="{% static 'img/logo.png' %}" alt="Logo" /></a>
+      </div>
+      <hr />
+      <ul class="nav flex-column gap-1 px-3">
+        <li class="nav-item">
+          <a href="{% url 'main:index' %}" class="sidebar__link {% if request.resolver_match.view_name == 'main:index' %}sidebar__link--active{% endif %}">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+              <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
+            </svg><span>Головна</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="sidebar__link {% if 'transactions' in request.path %}sidebar__link--active{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#sub-menu" aria-expanded="false" aria-controls="sub-menu">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+              <path d="M240-80q-50 0-85-35t-35-85v-120h120v-560h600v680q0 50-35 85t-85 35H240Zm480-80q17 0 28.5-11.5T760-200v-600H320v480h360v120q0 17 11.5 28.5T720-160ZM360-600v-80h360v80H360Zm0 120v-80h360v80H360ZM240-160h360v-80H200v40q0 17 11.5 28.5T240-160Zm0 0h-40 400-360Z" />
+            </svg>Транзакції
+            <span class="sidebar__link--icon">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                <path d="m336-280-56-56 144-144-144-143 56-56 144 144 143-144 56 56-144 143 144 144-56 56-143-144-144 144Z" />
               </svg>
             </span>
-          </button>
+          </a>
+        </li>
+
+        <div class="collapse" id="sub-menu">
+          <ul class="sub-menu">
+            <a class="sub__link {% if request.resolver_match.view_name == 'tracker:analytics' %}sub__link--active{% endif %}" href="{% url 'tracker:analytics' %}"><span class="sub__link--border"></span>Аналітіка</a>
+            <a class="sub__link {% if request.resolver_match.view_name == 'tracker:index' %}sub__link--active{% endif %}" href="{% url 'tracker:index' %}"><span class="sub__link--border"></span>Історія</a>
+            <a class="sub__link {% if request.resolver_match.view_name == 'tracker:create' %}sub__link--active{% endif %}" href="{% url 'tracker:create' %}"><span class="sub__link--border"></span>Додати транзакцію</a>
+          </ul>
         </div>
 
-        <div class="nav-container__left">
-          <a href="{% url 'tracker:index' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
-        </div>
+        <li class="nav-item">
+          <a class="sidebar__link {% if 'jars' in request.path %}sidebar__link--active{% endif %}" href="{% url 'jars:jars_list' %}">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+              <path d="M640-520q17 0 28.5-11.5T680-560q0-17-11.5-28.5T640-600q-17 0-28.5 11.5T600-560q0 17 11.5 28.5T640-520Zm-320-80h200v-80H320v80ZM180-120q-34-114-67-227.5T80-580q0-92 64-156t156-64h200q29-38 70.5-59t89.5-21q25 0 42.5 17.5T720-820q0 6-1.5 12t-3.5 11q-4 11-7.5 22.5T702-751l91 91h87v279l-113 37-67 224H480v-80h-80v80H180Zm60-80h80v-80h240v80h80l62-206 98-33v-141h-40L620-720q0-20 2.5-38.5T630-796q-29 8-51 27.5T547-720H300q-58 0-99 41t-41 99q0 98 27 191.5T240-200Zm240-298Z" />
+            </svg><span>Банки</span>
+          </a>
+        </li>
+        {% if user.is_staff %}
+          <div class="nav-item">
+            <a class="sidebar__link" href="{% url 'admin:index' %}">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                <path d="M680-280q25 0 42.5-17.5T740-340q0-25-17.5-42.5T680-400q-25 0-42.5 17.5T620-340q0 25 17.5 42.5T680-280Zm0 120q31 0 57-14.5t42-38.5q-22-13-47-20t-52-7q-27 0-52 7t-47 20q16 24 42 38.5t57 14.5ZM480-80q-139-35-229.5-159.5T160-516v-244l320-120 320 120v227q-19-8-39-14.5t-41-9.5v-147l-240-90-240 90v188q0 47 12.5 94t35 89.5Q310-290 342-254t71 60q11 32 29 61t41 52q-1 0-1.5.5t-1.5.5Zm200 0q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80ZM480-494Z" />
+              </svg>Адмін панель
+            </a>
+          </div>
+        {% endif %}
+      </ul>
+    </aside>
 
-        <div class="nav-container__right">
-          <div class="nav-container__buttons">
+    <div id="overlay" class="overlay"></div>
+
+    <main class="main">
+      <nav class="navbar navbar-expand">
+        <button class="toggler-btn" type="button"><i class="lni lni-text-align-left"></i></button>
+        <div class="dropdown">
+          <a href="#" class="navbar__username" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2" />
+            <strong>{{ request.user.username }}</strong>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+              </svg>
+            </span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow">
             {% if user.is_authenticated %}
+              <li>
+                <a class="dropdown-item" href="#">Профіль</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
               <form action="{% url 'users:logout' %}" method="post">
                 {% csrf_token %}
-                <button class="btn-outline-gold" type="submit">Вийти</button>
+                <button class="dropdown-item" type="submit">Вийти</button>
               </form>
             {% else %}
-              <a href="{% url 'users:login' %}" class="btn-outline-gold">Увійти</a>
+              <a href="{% url 'users:login' %}" class="dropdown-item">Увійти</a>
             {% endif %}
-          </div>
+          </ul>
         </div>
       </nav>
-
-      <aside class="offcanvas offcanvas-top h-100" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
-        <div class="offcanvas-header mt-3">
-          <img src="" alt="Logo" style="max-width: 130px;" />
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-          <div class="nav-container__links--mobile">
-            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:index' %}active{% endif %}" href="{% url 'tracker:index' %}">Історія</a>
-            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:analytics' %}active{% endif %}" href="{% url 'tracker:analytics' %}">Аналітіка</a>
-            <a class="nav-link {% if request.resolver_match.view_name == 'tracker:create' %}active{% endif %}" href="{% url 'tracker:create' %}">Додати транзакції</a>
-            <a class="nav-link {% if 'jars' in request.path %}active{% endif %}" href="{% url 'jars:jars_list' %}">Банки</a>
-            {% if user.is_staff %}
-              <a class="nav-link" href="{% url 'admin:index' %}">Админ панель</a>
-            {% endif %}
-          </div>
-        </div>
-      </aside>
-    </header>
-
-    <main class="main mt-5">
-      <div class="container">
-        <div class="row justify-content-center ">
-          <div class="col-md-12 col-lg-6">
-            {% include 'includes/notifications.html' %}
-          </div>
-        </div>
-      </div>
-      {% block content %}
-        
-      {% endblock %}
+      <main class="mt-5">
+        {% block content %}
+        {% endblock %}
+      </main>
     </main>
 
-    <script src="{% static 'js/jquery/jquery-3.7.0.min.js' %}"></script>
-    <script src="{% static 'js/jquery-ajax.js' %}"></script>
     <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
-    <script>
-      var toastElements = document.querySelectorAll('.toast');
-      var toastList = [...toastElements].map(function (toastEl) {
-          return new bootstrap.Toast(toastEl);
-      });
-      
-      toastList.forEach(function (toast) {
-          toast.show();
-      });
-    </script>
+    <script src="{% static 'js/toats.js' %}"></script>
+    <script src="{% static 'js/sidebar.js' %}"></script>
     {% block js %}
+
     {% endblock %}
   </body>
 </html>

@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+    --background: #f9fbfc;
+    --background: #fafafa;
+    --altbackground: #f2f5fb;
+    --foreground: #465c58;
+    --gold: #feb701;
+}
+
+body {
+    background: var(--background);
+    font-family: "Inter", sans-serif;
+    overflow: hidden;
+    display: flex;
+}
+
+/* ----------------------------------- SIDEBAR -------------------------------------- */
+#sidebar {
+    max-width: 264px;
+    min-width: 264px;
+    transition: all 0.35s ease-in-out;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--foreground);
+    padding-top: 18px;
+    position: sticky;
+    top: 0;
+    z-index: 10; 
+}
+
+#sidebar.collapsed {
+    margin-left: -264px;
+}
+
+.sidebar__header {
+    display: flex;
+    justify-content: end;
+    padding: 0 1rem;
+}
+
+.sidebar__logo {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 120px;
+}
+
+.sidebar__logo img {
+    width: 100%;
+}
+
+.sidebar__btn-close {
+    display: none;
+    color: var(--altbackground);
+    font-size: 1.8rem;
+    border: 0;
+    background-color: transparent;
+}
+
+.sidebar__link {
+    display: flex;
+    gap: .8rem;
+    border-radius: .5rem;
+    color: var(--altbackground);
+    padding: 0.5rem 1rem;
+    font-weight: 550;
+    transition: all .1s;
+    text-decoration: none;
+}
+
+.sidebar__link--icon {
+    transition: all .2s;
+    color: var(--altbackground);
+    margin-left: auto;
+    transform: rotate(45deg)
+}
+
+.sidebar__link:hover,
+.sidebar__link--active {
+    background-color: #ffffff;
+    color: #202020;
+}
+
+.sidebar__link:hover .sidebar__link--icon,
+.sidebar__link--active .sidebar__link--icon {
+    color: #202020;
+}
+
+/* Поворот иконки, когда aria-expanded="true" */
+.sidebar__link[aria-expanded="true"] .sidebar__link--icon {
+    transform: rotate(0deg);
+}
+
+.sub-menu {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    gap: 5px;
+    list-style: none;
+}
+
+.sub__link {
+    display: flex;
+    gap: 10px;
+    color: #ffffff;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 8px;
+    padding-left: 28px;
+    transition: all .2s;
+    border-radius: .5rem;
+}
+
+.sub__link--border {
+    border-left: 2px dashed #ffffff;
+}
+
+.sub__link:hover,
+.sub__link--active {
+    background: var(--background);
+    color: var(--gold);
+}
+
+.sub__link:hover .sub__link--border,
+.sub__link--active .sub__link--border {
+    border: 1px solid var(--gold)
+}
+
+
+.toggler-btn {
+    background-color: transparent;
+    border: 0;
+}
+
+.toggler-btn i {
+    font-size: 1.75rem;
+    color: #000;
+    font-weight: 1000;
+}
+
+/* ------------------------------- MAIN ---------------------- */
+.main {
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--background);
+    overflow-y: auto; 
+    height: 100vh;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: var(--background);
+    padding: 1.15rem 1.5rem;
+    border-bottom: 1px dashed #b3a8a8;
+}
+
+.navbar__username {
+    text-decoration: none;
+    color: #202020;
+    transition: all .2s ease-in-out;
+}
+
+.navbar__username:hover {
+    color: var(--gold);
+}
+
+/* Stats */
+.stats {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: var(--foreground);
+    color: var(--altbackground);
+    padding: 2rem 2rem;
+    color: var(--altbackground);
+}
+
+.stats.is_first {
+    border-radius: 1.5rem 0 0 1.5rem;
+}
+
+.stats.is_last {
+    border-radius: 0 1.5rem 1.5rem 0;
+}
+
+.stats__text {
+    font-weight: 550;
+    font-size: 0.875rem;
+}
+
+.stats__number {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+}
+
+/* Transactions */
+.transaction {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.35rem;
+    border-left: 5px solid transparent;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.transaction.is_income {
+    border-color: rgb(34 197 94);
+    background-color: rgb(220 252 231);
+}
+
+.transaction.is_expense {
+    background-color: rgb(254 226 226);
+    border-color: rgb(239 68 68);
+}
+
+/* Offcanvas */
+.offcanvas__title {
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    /* color: #f9fbfc; */
+    margin-top: 20px;
+}
+
+/* Text */
+.fs-sm {
+    font-size: .75rem !important;
+    color: #676f7e !important;
+    font-weight: 400;
+}
+
+.text-green {
+    color: #31cf39 !important;
+    font-weight: 700;
+}
+
+@media (min-width: 991px) {
+    .btn-offcanvas {
+        display: none;
+    }
+}
+
+/* Media */
+@media (max-width: 768px) {
+    #sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: -100%;
+        z-index: 10;
+        width: 100%;
+        max-width: 400px;
+        transition: all 0.5s ease;
+    }
+
+    #sidebar.collapsed {
+        left: 0%;
+    }
+
+    .sidebar__btn-close {
+        display: block;
+    }
+
+    .sidebar-toggle {
+        margin-left: -264px;
+        left: -100%;
+    }
+
+    .sidebar-toggle {
+        left: -999%;
+    }
+
+    #sidebar.collapsed {
+        margin-left: 0;
+        left: 0;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 2rem;
+        color: #fff;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 5;
+        transition: opacity 0.5s ease;
+        opacity: 0;
+    }
+
+    .overlay.show {
+        display: block;
+        opacity: 1;
+    }
+
+    .stats.is_first {
+        border-radius: 1.5rem 1.5rem 0 0;
+    }
+
+    .stats.is_last {
+        border-radius: 0 0 1.5rem 1.5rem;
+    }
+}

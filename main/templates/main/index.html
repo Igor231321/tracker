@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Головна сторінка
+{% endblock %}
+
+{% block content %}
+  <div class="container py-5">
+    <!-- Центральний заголовок -->
+    <div class="text-center mb-5">
+      <h1 class="display-4">Управління транзакціями та заощадженнями</h1>
+      <p class="lead">Зручне і безпечне місце для управління вашими фінансами та відкладення грошей.</p>
+    </div>
+
+    <!-- Рядок з двома блоками -->
+    <div class="row align-items-md-stretch">
+      <!-- Блок про транзакції -->
+      <div class="col-md-6">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2 class="d-flex gap-2 align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="currentColor">
+              <path d="M240-80q-50 0-85-35t-35-85v-120h120v-560h600v680q0 50-35 85t-85 35H240Zm480-80q17 0 28.5-11.5T760-200v-600H320v480h360v120q0 17 11.5 28.5T720-160ZM360-600v-80h360v80H360Zm0 120v-80h360v80H360ZM240-160h360v-80H200v40q0 17 11.5 28.5T240-160Zm0 0h-40 400-360Z"></path>
+            </svg>
+            <span>Транзакції</span>
+          </h2>
+          <p>Керуйте своїми транзакціями легко. Переглядайте історію, створюйте нові і стежте за балансом.</p>
+          <a href="{% url 'tracker:index' %}" class="btn btn-outline-light mt-3 fw-semibold" type="button">Переглянути транзакції</a>
+        </div>
+      </div>
+
+      <!-- Блок про банки для відкладення грошей -->
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2 class="d-flex align-items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="currentColor">
+              <path d="M640-520q17 0 28.5-11.5T680-560q0-17-11.5-28.5T640-600q-17 0-28.5 11.5T600-560q0 17 11.5 28.5T640-520Zm-320-80h200v-80H320v80ZM180-120q-34-114-67-227.5T80-580q0-92 64-156t156-64h200q29-38 70.5-59t89.5-21q25 0 42.5 17.5T720-820q0 6-1.5 12t-3.5 11q-4 11-7.5 22.5T702-751l91 91h87v279l-113 37-67 224H480v-80h-80v80H180Zm60-80h80v-80h240v80h80l62-206 98-33v-141h-40L620-720q0-20 2.5-38.5T630-796q-29 8-51 27.5T547-720H300q-58 0-99 41t-41 99q0 98 27 191.5T240-200Zm240-298Z"></path>
+            </svg>
+            <span>Банки для заощаджень</span>
+          </h2>
+          <p>Створюйте банки для відкладення грошей на конкретні цілі. Легко слідкуйте за прогресом своїх заощаджень.</p>
+          <a href="{% url 'jars:create' %}" class="btn btn-outline-secondary mt-3 fw-semibold" type="button">Створити нову банку</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

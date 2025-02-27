@@ -1,0 +1,95 @@
+.container {
+    max-width: 1200px;
+}
+
+/* Text  */
+hr {
+    border-top: 1px dashed  var(--background);
+}
+
+p {
+    margin: 0;
+}
+
+.toast {
+    --bs-toast-zindex: 1090;
+    --bs-toast-padding-x: 0.75rem;
+    --bs-toast-padding-y: 0.5rem;
+    --bs-toast-spacing: 1.5rem;
+    --bs-toast-max-width: 350px;
+    --bs-toast-font-size: 0.875rem;
+    --bs-toast-color: #202020;
+    --bs-toast-bg: var(--bs-gray-200);
+    --bs-toast-border-width: var(--bs-border-width);
+    --bs-toast-border-color: var(--bs-border-color-translucent);
+    --bs-toast-border-radius: var(--bs-border-radius);
+    --bs-toast-box-shadow: var(--bs-box-shadow);
+    --bs-toast-header-color: var(--bs-white);
+    --bs-toast-header-bg: var(--foreground);
+    --bs-toast-header-border-color: var(--bs-border-color-translucent);
+}
+
+.dropdown-menu {
+    --bs-dropdown-link-hover-bg: hsl(240, 7%, 93%);
+    --bs-dropdown-link-active-color: #202020;
+    --bs-dropdown-link-active-bg: var(--gold);
+    --bs-dropdown-padding-x: 0.25rem;
+    --bs-dropdown-padding-y: 0.25rem;
+    --bs-dropdown-item-padding-x: 1rem;
+    --bs-dropdown-item-padding-y: 0.75rem;
+    font-weight: 600;
+    --bs-dropdown-item-border-radius: calc(.5rem - 1px);
+}
+
+.accordion {
+    --bs-accordion-bg: var(--background);
+    --bs-accordion-btn-focus-box-shadow: transparant;
+    --bs-accordion-active-color: #202020;
+    --bs-accordion-active-bg: var(--gold);
+}
+
+.accordion-button {
+    font-weight: 600;
+}
+
+.form-control:focus {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: var(--gold);
+    outline: 0;
+    box-shadow: 0 0 0 .25rem transparent;
+}
+
+
+.btn-light {
+    border-color: #bebebe;
+}
+
+
+.card-header {
+    background-color: transparent;
+    padding: 1.25rem 1.5rem;
+
+}
+
+.card {
+    border-radius: .75rem;
+}
+
+/* Tables */
+.table>:not(caption)>*>* {
+    padding: 1rem 1.5rem;
+}
+
+.table-flush tbody>tr:last-child td,
+.table-flush tbody>tr:last-child th {
+    border-bottom: 0;
+}
+
+table {
+    caption-side: bottom;
+}
+
+.table-flush {
+    --bs-table-bg: transparent;
+}

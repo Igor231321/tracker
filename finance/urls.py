@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('jars/', include("jars.urls", namespace="jars")),
     path('users/', include("users.urls", namespace="users")),
-    path("", include("tracker.urls", namespace="tracker"))
+    path("transactions/", include("tracker.urls", namespace="tracker")),
+    path("", include("main.urls", namespace="main"))
 ]

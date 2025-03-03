@@ -1,10 +1,8 @@
-
 from collections import defaultdict
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models.functions import TruncDate
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -29,8 +27,12 @@ class AnalyticsListView(LoginRequiredMixin, generic.TemplateView):
         context["year"] = year
         context["month_name"] = get_month_name(month)
 
-        context["categories_income"] = get_categories(user=user, status="income", month=month, year=year)
-        context["categories_expense"] = get_categories(user=user, status="expense", month=month, year=year)
+        context["categories_income"] = get_categories(
+            user=user, status="income", month=month, year=year
+        )
+        context["categories_expense"] = get_categories(
+            user=user, status="expense", month=month, year=year
+        )
         context["total_expenses"] = Transaction.objects.for_user(
             user=user, status=Status.EXPENSE, month=month, year=year
         ).total_sum()
@@ -74,7 +76,9 @@ class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
         return context
 
 
-class TransactionCreateView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
+class TransactionCreateView(
+    LoginRequiredMixin, SuccessMessageMixin, generic.CreateView
+):
     template_name = "tracker/create.html"
     form_class = TransactionForm
     success_url = reverse_lazy("tracker:create")

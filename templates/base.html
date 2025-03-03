@@ -22,101 +22,137 @@
     </title>
   </head>
   <body>
-    <aside id="sidebar" class="sidebar">
-      <div class="sidebar__header">
-        <button class="sidebar__btn-close" id="closeSidebar">&times;</button>
-      </div>
-      <div class="sidebar__logo">
+    <nav class="navbar navbar-expand">
+      <button class="toggler-btn" type="button" id="btn">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff">
+          <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+        </svg>
+      </button>
+      <div class="navbar__logo">
         <a href="{% url 'main:index' %}"><img src="{% static 'img/logo.png' %}" alt="Logo" /></a>
       </div>
-      <hr />
-      <ul class="nav flex-column gap-1 px-3">
-        <li class="nav-item">
-          <a href="{% url 'main:index' %}" class="sidebar__link {% if request.resolver_match.view_name == 'main:index' %}sidebar__link--active{% endif %}">
+      <div class="dropdown">
+        <a href="#" class="navbar__username" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2" />
+          <strong>{{ request.user.username }}</strong>
+          <span>
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-              <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
-            </svg><span>Головна</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="sidebar__link {% if 'transactions' in request.path %}sidebar__link--active{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#sub-menu" aria-expanded="false" aria-controls="sub-menu">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-              <path d="M240-80q-50 0-85-35t-35-85v-120h120v-560h600v680q0 50-35 85t-85 35H240Zm480-80q17 0 28.5-11.5T760-200v-600H320v480h360v120q0 17 11.5 28.5T720-160ZM360-600v-80h360v80H360Zm0 120v-80h360v80H360ZM240-160h360v-80H200v40q0 17 11.5 28.5T240-160Zm0 0h-40 400-360Z" />
-            </svg>Транзакції
-            <span class="sidebar__link--icon">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-                <path d="m336-280-56-56 144-144-144-143 56-56 144 144 143-144 56 56-144 143 144 144-56 56-143-144-144 144Z" />
-              </svg>
-            </span>
-          </a>
-        </li>
-
-        <div class="collapse" id="sub-menu">
-          <ul class="sub-menu">
-            <a class="sub__link {% if request.resolver_match.view_name == 'tracker:analytics' %}sub__link--active{% endif %}" href="{% url 'tracker:analytics' %}"><span class="sub__link--border"></span>Аналітіка</a>
-            <a class="sub__link {% if request.resolver_match.view_name == 'tracker:index' %}sub__link--active{% endif %}" href="{% url 'tracker:index' %}"><span class="sub__link--border"></span>Історія</a>
-            <a class="sub__link {% if request.resolver_match.view_name == 'tracker:create' %}sub__link--active{% endif %}" href="{% url 'tracker:create' %}"><span class="sub__link--border"></span>Додати транзакцію</a>
-          </ul>
-        </div>
-
-        <li class="nav-item">
-          <a class="sidebar__link {% if 'jars' in request.path %}sidebar__link--active{% endif %}" href="{% url 'jars:jars_list' %}">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-              <path d="M640-520q17 0 28.5-11.5T680-560q0-17-11.5-28.5T640-600q-17 0-28.5 11.5T600-560q0 17 11.5 28.5T640-520Zm-320-80h200v-80H320v80ZM180-120q-34-114-67-227.5T80-580q0-92 64-156t156-64h200q29-38 70.5-59t89.5-21q25 0 42.5 17.5T720-820q0 6-1.5 12t-3.5 11q-4 11-7.5 22.5T702-751l91 91h87v279l-113 37-67 224H480v-80h-80v80H180Zm60-80h80v-80h240v80h80l62-206 98-33v-141h-40L620-720q0-20 2.5-38.5T630-796q-29 8-51 27.5T547-720H300q-58 0-99 41t-41 99q0 98 27 191.5T240-200Zm240-298Z" />
-            </svg><span>Банки</span>
-          </a>
-        </li>
-        {% if user.is_staff %}
-          <div class="nav-item">
-            <a class="sidebar__link" href="{% url 'admin:index' %}">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-                <path d="M680-280q25 0 42.5-17.5T740-340q0-25-17.5-42.5T680-400q-25 0-42.5 17.5T620-340q0 25 17.5 42.5T680-280Zm0 120q31 0 57-14.5t42-38.5q-22-13-47-20t-52-7q-27 0-52 7t-47 20q16 24 42 38.5t57 14.5ZM480-80q-139-35-229.5-159.5T160-516v-244l320-120 320 120v227q-19-8-39-14.5t-41-9.5v-147l-240-90-240 90v188q0 47 12.5 94t35 89.5Q310-290 342-254t71 60q11 32 29 61t41 52q-1 0-1.5.5t-1.5.5Zm200 0q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80ZM480-494Z" />
-              </svg>Адмін панель
+              <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+            </svg>
+          </span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end shadow">
+          {% if user.is_authenticated %}
+            <li>
+              <a class="dropdown-item" href="#">Профіль</a>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <form action="{% url 'users:logout' %}" method="post">
+              {% csrf_token %}
+              <button class="dropdown-item" type="submit">Вийти</button>
+            </form>
+          {% else %}
+            <a href="{% url 'users:login' %}" class="dropdown-item">Увійти</a>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <div class="position-relative">
+      <div class="overlay"></div>
+      <div class="sidebar">
+        <ul class="sidebar__nav">
+          <li class="sidebar__item">
+            <a href="{% url 'main:index' %}" class="sidebar__link {% if request.resolver_match.view_name == 'main:index' %}active{% endif %}">
+              <div class="sidebar__link--icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="currentColor">
+                  <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
+                </svg>
+              </div>
+              <span>Головна</span>
             </a>
-          </div>
-        {% endif %}
-      </ul>
-    </aside>
+          </li>
+          {% if user.is_staff %}
+            <div class="sidebar__item">
+              <a class="sidebar__link" href="{% url 'admin:index' %}">
+                <div class="sidebar__link--icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                    <path d="M680-280q25 0 42.5-17.5T740-340q0-25-17.5-42.5T680-400q-25 0-42.5 17.5T620-340q0 25 17.5 42.5T680-280Zm0 120q31 0 57-14.5t42-38.5q-22-13-47-20t-52-7q-27 0-52 7t-47 20q16 24 42 38.5t57 14.5ZM480-80q-139-35-229.5-159.5T160-516v-244l320-120 320 120v227q-19-8-39-14.5t-41-9.5v-147l-240-90-240 90v188q0 47 12.5 94t35 89.5Q310-290 342-254t71 60q11 32 29 61t41 52q-1 0-1.5.5t-1.5.5Zm200 0q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80ZM480-494Z" />
+                  </svg>
+                </div>
+                <span>Адмін панель</span>
+              </a>
+            </div>
+          {% endif %}
 
-    <div id="overlay" class="overlay"></div>
+          <li class="sidenav-section">
+            <span>Транзакції</span>
+          </li>
+          <li class="sidebar__item">
+            <a href="{% url 'tracker:analytics' %}" class="sidebar__link {% if request.resolver_match.view_name == 'tracker:analytics' %}active{% endif %}" type="button">
+              <div class="sidebar__link--icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                  <path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" />
+                </svg>
+              </div>
+              <span>Аналітіка</span>
+            </a>
+          </li>
+          <li class="sidebar__item">
+            <a href="{% url 'tracker:index' %}" class="sidebar__link {% if request.resolver_match.view_name == 'tracker:index' %}active{% endif %}">
+              <div class="sidebar__link--icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                  <path d="m480-240 160-160-56-56-64 64v-168h-80v168l-64-64-56 56 160 160ZM200-640v440h560v-440H200Zm0 520q-33 0-56.5-23.5T120-200v-499q0-14 4.5-27t13.5-24l50-61q11-14 27.5-21.5T250-840h460q18 0 34.5 7.5T772-811l50 61q9 11 13.5 24t4.5 27v499q0 33-23.5 56.5T760-120H200Zm16-600h528l-34-40H250l-34 40Zm264 300Z" />
+                </svg>
+              </div>
+              <span>Архів</span>
+            </a>
+          </li>
+          <li class="sidebar__item">
+            <a class="sidebar__link {% if request.resolver_match.view_name == 'tracker:create' %}active{% endif %}" href="{% url 'tracker:create' %}">
+              <div class="sidebar__link--icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                  <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+                </svg>
+              </div>
+              <span>Додати транзакцію</span>
+            </a>
+          </li>
 
-    <main class="main">
-      <nav class="navbar navbar-expand">
-        <button class="toggler-btn" type="button"><i class="lni lni-text-align-left"></i></button>
-        <div class="dropdown">
-          <a href="#" class="navbar__username" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2" />
-            <strong>{{ request.user.username }}</strong>
-            <span>
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-                <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
-              </svg>
-            </span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end shadow">
-            {% if user.is_authenticated %}
-              <li>
-                <a class="dropdown-item" href="#">Профіль</a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <form action="{% url 'users:logout' %}" method="post">
-                {% csrf_token %}
-                <button class="dropdown-item" type="submit">Вийти</button>
-              </form>
-            {% else %}
-              <a href="{% url 'users:login' %}" class="dropdown-item">Увійти</a>
-            {% endif %}
-          </ul>
-        </div>
-      </nav>
-      <main class="mt-5">
+          <li class="sidenav-section">
+            <span>Накопичення</span>
+          </li>
+          <li class="sidebar__item">
+            <a class="sidebar__link {% if request.resolver_match.view_name == 'jars:jars_list' %}active{% endif %}" href="{% url 'jars:jars_list' %}">
+              <div class="sidebar__link--icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                  <path d="M640-520q17 0 28.5-11.5T680-560q0-17-11.5-28.5T640-600q-17 0-28.5 11.5T600-560q0 17 11.5 28.5T640-520Zm-320-80h200v-80H320v80ZM180-120q-34-114-67-227.5T80-580q0-92 64-156t156-64h200q29-38 70.5-59t89.5-21q25 0 42.5 17.5T720-820q0 6-1.5 12t-3.5 11q-4 11-7.5 22.5T702-751l91 91h87v279l-113 37-67 224H480v-80h-80v80H180Zm60-80h80v-80h240v80h80l62-206 98-33v-141h-40L620-720q0-20 2.5-38.5T630-796q-29 8-51 27.5T547-720H300q-58 0-99 41t-41 99q0 98 27 191.5T240-200Zm240-298Z" />
+                </svg>
+              </div>
+              <span>Банки</span>
+            </a>
+          </li>
+          <li class="sidebar__item">
+            <a class="sidebar__link {% if request.resolver_match.view_name == 'jars:create' %}active{% endif %}" href="{% url 'jars:create' %}">
+              <div class="sidebar__link--icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                  <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+                </svg>
+              </div>
+              <span>Створити банку</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="main-content">
         {% block content %}
-        {% endblock %}
-      </main>
-    </main>
 
+        {% endblock %}
+      </div>
+    </div>
+    {% include 'includes/notifications.html' %}
     <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/toats.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>

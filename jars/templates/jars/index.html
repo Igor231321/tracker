@@ -13,19 +13,10 @@
 {% block content %}
   <section class="container">
     {% if jars %}
-      <div class="row align-items-center mb-4">
-        <div class="col">
-          <h1 class="fs-2 fw-semibold mb-0">Мої банки</h1>
-        </div>
-        <div class="col-12 col-sm-auto mt-4 mt-sm-0">
-          <!-- Action -->
-          <a href="{% url 'jars:create' %}" class="btn-gold btn-small d-block">Створити банку</a>
-        </div>
-      </div>
+      <h2 class="pb-2 mb-4 fw-semibold border-bottom">Мої банки</h2>
       <div class="row g-4">
         {% for jar in jars %}
           <div class="col-lg-4 col-md-6">
-
             <div class="card shadow">
               <div class="card-body">
                 <h3 class="card-title">{{ jar.title }}</h3>

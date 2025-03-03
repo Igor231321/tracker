@@ -4,7 +4,7 @@
 
 /* Text  */
 hr {
-    border-top: 1px dashed  var(--background);
+    border-top: 1px dashed var(--background);
 }
 
 p {
@@ -19,8 +19,8 @@ p {
     --bs-toast-max-width: 350px;
     --bs-toast-font-size: 0.875rem;
     --bs-toast-color: #202020;
-    --bs-toast-bg: var(--bs-gray-200);
-    --bs-toast-border-width: var(--bs-border-width);
+    --bs-toast-bg: var(--altbackground);
+    --bs-toast-border-width: 1px;
     --bs-toast-border-color: var(--bs-border-color-translucent);
     --bs-toast-border-radius: var(--bs-border-radius);
     --bs-toast-box-shadow: var(--bs-box-shadow);
@@ -37,7 +37,6 @@ p {
     --bs-dropdown-padding-y: 0.25rem;
     --bs-dropdown-item-padding-x: 1rem;
     --bs-dropdown-item-padding-y: 0.75rem;
-    font-weight: 600;
     --bs-dropdown-item-border-radius: calc(.5rem - 1px);
 }
 
@@ -48,7 +47,7 @@ p {
     --bs-accordion-active-bg: var(--gold);
 }
 
-.accordion-button {
+.accordion-button, .dropdown-item {
     font-weight: 600;
 }
 
@@ -65,6 +64,10 @@ p {
     border-color: #bebebe;
 }
 
+.toast-container {
+    bottom: 2rem;
+    right: 3rem;
+}
 
 .card-header {
     background-color: transparent;

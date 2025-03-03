@@ -1,18 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
-:root {
-    --background: #f9fbfc;
-    --background: #fafafa;
-    --altbackground: #f2f5fb;
-    --foreground: #465c58;
-    --gold: #feb701;
-    --aside-width: 400px;
-}
-
-body {
-    background: var(--background);
-    font-family: "Inter", sans-serif;
-}
 
 .gold_link {
     text-underline-offset: 0.375em;
@@ -29,8 +14,7 @@ body {
     display: inline-block;
     text-align: center;
     border: 2px solid var(--gold);
-    padding: .6rem 1.15rem;
-    min-width: 135px;
+    padding: .6rem 1.2rem;
     transition: all .2s ease;
     text-decoration: none;
     color: var(--altbackground);
@@ -70,16 +54,16 @@ body {
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    padding: .4rem .9rem;
-    border-radius: 5px;
-    border: 1px solid var(--gold);
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    border: 2px solid var(--gold);
     text-align: center;
-    text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 600;
     color: #000;
     transition: all .2s ease-in-out;
     background-color: var(--gold);
     gap: .2rem;
+    letter-spacing: .45px;
 }
 
 .btn-gold:hover {

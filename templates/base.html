@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap/custom_bootstrap.css' %}" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     {% block css %}
 
@@ -32,8 +31,9 @@
         <a href="{% url 'main:index' %}"><img src="{% static 'img/logo.png' %}" alt="Logo" /></a>
       </div>
       <div class="dropdown">
+        {% if user.is_authenticated %}
         <a href="#" class="navbar__username" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2" />
+          {% comment %} <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2" /> {% endcomment %}
           <strong>{{ request.user.username }}</strong>
           <span>
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
@@ -42,7 +42,6 @@
           </span>
         </a>
         <ul class="dropdown-menu dropdown-menu-end shadow">
-          {% if user.is_authenticated %}
             <li>
               <a class="dropdown-item" href="#">Профіль</a>
             </li>
@@ -93,14 +92,14 @@
             <a href="{% url 'tracker:analytics' %}" class="sidebar__link {% if request.resolver_match.view_name == 'tracker:analytics' %}active{% endif %}" type="button">
               <div class="sidebar__link--icon">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-                  <path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" />
+                  <path d="m105-399-65-47 200-320 120 140 160-260 120 180 135-214 65 47-198 314-119-179-152 247-121-141-145 233Zm475 159q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29ZM784-80 676-188q-21 14-45.5 21t-50.5 7q-75 0-127.5-52.5T400-340q0-75 52.5-127.5T580-520q75 0 127.5 52.5T760-340q0 26-7 50.5T732-244l108 108-56 56Z" />
                 </svg>
               </div>
               <span>Аналітіка</span>
             </a>
           </li>
           <li class="sidebar__item">
-            <a href="{% url 'tracker:index' %}" class="sidebar__link {% if request.resolver_match.view_name == 'tracker:index' %}active{% endif %}">
+            <a href="{% url 'tracker:arhiv' %}" class="sidebar__link {% if request.resolver_match.view_name == 'tracker:arhiv' %}active{% endif %}">
               <div class="sidebar__link--icon">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
                   <path d="m480-240 160-160-56-56-64 64v-168h-80v168l-64-64-56 56 160 160ZM200-640v440h560v-440H200Zm0 520q-33 0-56.5-23.5T120-200v-499q0-14 4.5-27t13.5-24l50-61q11-14 27.5-21.5T250-840h460q18 0 34.5 7.5T772-811l50 61q9 11 13.5 24t4.5 27v499q0 33-23.5 56.5T760-120H200Zm16-600h528l-34-40H250l-34 40Zm264 300Z" />
@@ -147,12 +146,12 @@
       </div>
 
       <div class="main-content">
+        {% include 'includes/notifications.html' %}
         {% block content %}
 
         {% endblock %}
       </div>
     </div>
-    {% include 'includes/notifications.html' %}
     <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/toats.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>

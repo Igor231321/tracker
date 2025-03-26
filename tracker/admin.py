@@ -14,9 +14,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ["description", "amount", "created_at", "category", "status", "user"]
-    list_filter = ["category", "status", "amount", "created_at"]
-    search_fields = ["description", "amount", "created_at"]
+    list_display = ["description", "amount", "current_balance", "created_at", "category", "status", "user"]
+    list_filter = ["category", "status", "amount", "current_balance", "created_at"]
+    search_fields = ["description", "amount", "current_balance", "created_at"]
     created_at_hierarchy = "created_at"
     list_editable = ["amount", "status", "category", "user"]
     list_per_page = 10

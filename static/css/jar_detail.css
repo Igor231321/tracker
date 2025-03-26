@@ -18,6 +18,12 @@
     --bs-card-bg: var(--bs-body-bg);
     --bs-card-img-overlay-padding: 1rem;
     --bs-card-group-margin: 0.75rem;
+    transition: all .3s ease
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 .card-title {
@@ -93,26 +99,3 @@
     transform: scaleX(1);
     transform-origin: 0 0;
 }
-
-
-
-
-/* @media (max-width: 769px) {
-    .nav-container__logo {
-        max-width: 130px;
-    }
-
-    .btn-lg {
-        font-size: 15px;
-        padding-right: 2rem;
-        padding-left: 2rem;
-    }
-
-    .stats.is_first{ 
-        border-radius: 1.5rem 1.5rem 0 0;
-    }
-    
-    .stats.is_last { 
-        border-radius: 0 0 1.5rem 1.5rem;
-    }
-} */

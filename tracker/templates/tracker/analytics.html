@@ -8,19 +8,28 @@
 
 {% block content %}
   <section class="container">
-    <div class="row align-items-center mb-4">
-      <div class="col">
-        <h1 class="fs-2 fw-semibold mb-0">Статистика</h1>
-      </div>
-      <div class="col-12 col-lg-auto mt-4 mt-lg-0">
-        <!-- Action -->
+    {% comment %}Content{% endcomment %}
+    <div class="bg-foreground mb-3">
+      <div class="d-flex justify-content-lg-between align-items-lg-center flex-column flex-lg-row gap-2 mb-3">
+        <div class="d-flex align-items-center gap-3">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" height="1.8rem" viewBox="0 -960 960 960" width="1.8rem" fill="currentColor">
+              <path d="m105-399-65-47 200-320 120 140 160-260 120 180 135-214 65 47-198 314-119-179-152 247-121-141-145 233Zm475 159q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29ZM784-80 676-188q-21 14-45.5 21t-50.5 7q-75 0-127.5-52.5T400-340q0-75 52.5-127.5T580-520q75 0 127.5 52.5T760-340q0 26-7 50.5T732-244l108 108-56 56Z" />
+            </svg>
+          </div>
+          <h2 class="fw-semibold mb-0">Статистика</h2>
+        </div>
+
         <div class="dropdown">
-          <button type="button" class="btn-gold btn-small dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+          <button type="button" class="btn-gold w-100" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+              <path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z" />
+            </svg>
             {{ month_name }}
             {{ year }}
           </button>
 
-          <ul class="dropdown-menu dropdown-menu-lg-end">
+          <ul class="dropdown-menu dropdown-menu-end" style="max-height: 130px; overflow-y: scroll;">
             {% for date in date_transactions %}
               <li>
                 <a class="dropdown-item 
@@ -32,26 +41,25 @@
           </ul>
         </div>
       </div>
-    </div>
 
-    {% comment %}Content{% endcomment %}
-    <div class="row row-cols-1 row-cols-md-3 g-1 mb-3">
-      <div class="col">
-        <div class="stats is_first">
-          <p class="stats__number">{{ total_expenses|format_number }} UAN</p>
-          <p class="stats__text">Витрати</p>
+      <div class="row row-cols-1 row-cols-md-3 g-0">
+        <div class="col">
+          <div class="stats is_first">
+            <p class="stats__text">Витрати</p>
+            <p class="stats__number">{{ total_expenses|format_number }} UAN</p>
+          </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="stats">
-          <p class="stats__number">{{ total_income|format_number }} UAN</p>
-          <p class="stats__text">Прибуток</p>
+        <div class="col">
+          <div class="stats">
+            <p class="stats__text">Прибуток</p>
+            <p class="stats__number">{{ total_income|format_number }} UAN</p>
+          </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="stats is_last">
-          <p class="stats__number">{{ total_balance|format_number }} UAN</p>
-          <p class="stats__text">Баланс</p>
+        <div class="col">
+          <div class="stats is_last">
+            <p class="stats__text">Баланс у поточному місяці</p>
+            <p class="stats__number">{{ total_balance|format_number }} UAN</p>
+          </div>
         </div>
       </div>
     </div>
@@ -81,7 +89,11 @@
                 <tbody>
                   {% for category in categories_expense %}
                     <tr>
-                      <th scope="row" class="fw-normal">{{ category.title }}</th>
+                      <th scope="row" class="fw-normal d-flex align-items-center gap-3">
+                        <img src="{% static 'img\133.png' %}" alt=""  style="max-width: 45px;"/>
+
+                        {{ category.title }}
+                      </th>
                       <td class="text-center">{{ category.total_transactions }}</td>
                       <td class="text-center">-{{ category.total_amount|format_number }}</td>
                       <td>

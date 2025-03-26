@@ -91,6 +91,7 @@ class Transaction(models.Model):
         verbose_name="Тип (доход/витрата)",
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Користувач")
+    current_balance = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Баланс на данний момент", blank=True, null=True)
 
     objects = TransactionQuerySet().as_manager()
 
@@ -104,15 +105,21 @@ class Transaction(models.Model):
         return self.description
 
     def save(self, *args, **kwargs):
-        # Проверка, если статус - расход
+        if self.pk:
+            old_transaction = Transaction.objects.get(pk=self.pk)
+            
+            if old_transaction.status == Status.EXPENSE:
+                self.user.balance += old_transaction.amount
+            else:
+                self.user.balance -= old_transaction.amount
+
+        # Применяем новую транзакцию
         if self.status == Status.EXPENSE:
             self.user.balance -= self.amount
 
         elif self.status == Status.INCOME:
             self.user.balance += self.amount
 
-        # Сохраняем объект пользователя с обновленным балансом
+        self.current_balance = self.user.balance
         self.user.save()
-
-        # Сохраняем саму транзакцию
         super().save(*args, **kwargs)

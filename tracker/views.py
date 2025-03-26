@@ -2,8 +2,9 @@ from collections import defaultdict
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.db.models.functions import TruncDate
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import generic
@@ -76,28 +77,8 @@ class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
         return context
 
 
-class TransactionCreateView(
-    LoginRequiredMixin, SuccessMessageMixin, generic.CreateView
-):
-    template_name = "tracker/create.html"
-    form_class = TransactionForm
-    success_url = reverse_lazy("tracker:create")
-    success_message = "Транзакція успішно добавлена"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["categories"] = Category.objects.all()
-        context["status"] = Status.choices
-        return context
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-
-        return super().form_valid(form)
-
-
 class TransactionListView(LoginRequiredMixin, generic.ListView):
-    template_name = "tracker/index.html"
+    template_name = "tracker/arhiv.html"
     context_object_name = "transactions"
 
     def get_queryset(self):
@@ -142,10 +123,75 @@ class TransactionListView(LoginRequiredMixin, generic.ListView):
 
         context["grouped_transactions"] = dict(grouped_transactions)
 
+        context["statuses"] = [
+            ("default", "Усі"),
+            ("income", "Прибуток"),
+            ("expense", "Витрати"),
+        ]
         context["categorys"] = Category.objects.all()
         context["date_transactions"] = Transaction.objects.dates("created_at", "month")
 
         context["selected_categorys"] = self.request.GET.getlist("category")
         if self.request.GET.get("date"):
             context["date"] = self.request.GET.get("date").split()
+
+        context["selected_status"] = self.request.GET.get("status", "default")
+        context["selected_categories"] = self.request.GET.getlist("category")
+        context["selected_date"] = self.request.GET.get("date")
         return context
+
+
+class TransactionCreateView(
+    LoginRequiredMixin, SuccessMessageMixin, generic.CreateView
+):
+    template_name = "tracker/create.html"
+    form_class = TransactionForm
+    success_url = reverse_lazy("tracker:create")
+    success_message = "Транзакція успішно добавлена"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        context["status"] = Status.choices
+        return context
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+
+        return super().form_valid(form)
+
+
+class TransactionDeailView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
+    template_name = "tracker/create.html"
+    form_class = TransactionForm
+    success_url = reverse_lazy("tracker:create")
+    success_message = "Транзакція успішно добавлена"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        context["status"] = Status.choices
+        return context
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+
+        return super().form_valid(form)
+
+
+def delete_transaction(request, id):
+    if request.method == "POST":
+        transaction = Transaction.objects.get(id=id)
+
+        if transaction.status == Status.EXPENSE:
+            request.user.balance += transaction.amount
+        else:
+            request.user.balance -= transaction.amount
+
+        request.user.save()
+        transaction.delete()
+
+        messages.success(request, "Транзакція успішно видалена")
+    return redirect("tracker:arhiv")
+
+

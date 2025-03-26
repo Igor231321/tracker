@@ -1,0 +1,50 @@
+{% load static %}
+
+ {% comment %} Filters {% endcomment %}
+ <aside class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Фільтр</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <form action="{% url 'tracker:arhiv' %}" method="get" class="row">
+        <div class="col-12">
+            <h6 class="offcanvas__title">Тип транзакції</h6>
+            {% for value, label in statuses %}
+              <input type="radio" class="btn-check" name="status" id="btn-check-{{ value }}" value="{{ value }}" {% if selected_status == value %}checked{% endif %} />
+              <label class="btn btn-outline-dark mb-3" for="btn-check-{{ value }}">{{ label }}</label>
+            {% endfor %}
+          </div>
+        
+        <div class="col-12">
+          <h6 class="offcanvas__title">Категорія</h6>
+          {% for category in categorys %}
+            <input 
+              type="checkbox" 
+              class="btn-check" 
+              name="category" 
+              id="btn-check-{{ category.id }}" 
+              value="{{ category.slug }}" 
+              {% if category.slug in selected_categorys %}checked{% endif %}
+            >
+            <label class="btn btn-outline-dark mb-1" for="btn-check-{{ category.id }}">{{ category.title }}</label>
+          {% endfor %}
+        </div>
+
+        <div class="col-12">
+          <h6 class="offcanvas__title">Період</h6>
+          {% with month_selected=date.0 year_selected=date.1 %}
+            {% for date in date_transactions %}
+              <input type="radio" class="btn-check" name="date" id="btn-check-{{ date|date:"F" }}" 
+                  value="{{ date|date:"m Y" }}" 
+                  {% if date|date:"m" == month_selected and date|date:"Y" == year_selected %}checked{% endif %} />
+              <label class="btn btn-outline-dark mb-1" for="btn-check-{{ date|date:"F" }}">{{ date|date:"F Y" }}</label>
+            {% endfor %}
+          {% endwith %}
+        </div>
+        <div class="col-12 d-grid mt-3">
+          <button type="submit" class="btn-gold">Застосувати</button>
+        </div>
+      </form>
+    </div>
+  </aside>

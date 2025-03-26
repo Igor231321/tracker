@@ -6,65 +6,54 @@
 {% endblock %}
 
 {% block content %}
-  <section class="container">
-    <div class="row justify-content-center mt-5">
-      <div class="col-md-6">
-        {% if form.non_field_errors %}
-          <div class="alert alert-danger">
-            {% for error in form.non_field_errors %}
-              <p>{{ error }}</p>
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
-
+  <section class="container mt-5">
+    <div class="row justify-content-center">
       <!-- Форма авторизации -->
       <div class="col-lg-7">
-        <div class="box" style="padding: 32px;">
-          <h2 class="box__title text-center">Авторизация</h2>
-          <form action="{% url 'users:login' %}" method="post">
-            {% csrf_token %}
-            {% if request.GET.next %}
-              <input type="hidden" name="next" value="{{ request.GET.next }}" />
-            {% endif %}
-
-            <div class="input-group has-validation mb-3">
-              <div class="form-floating">
-                <input type="text" name="username" class="form-control {% if form.username.errors %}is-invalid{% endif %}" value="{% if form.username.value %}{{ form.username.value }}{% endif %}" id="id_username" placeholder="" required />
-                <label for="id_username">Ім'я користувача</label>
-              </div>
-              {% if form.username.errors %}
-                {% for error in form.username.errors %}
-                  <div class="invalid-feedback">{{ error }}</div>
-                {% endfor %}
+        <div class="card p-3">
+          <div class="card-body">
+            <h2 class="box__title text-center">Авторизация</h2>
+            <form action="{% url 'users:login' %}" method="post">
+              {% csrf_token %}
+              {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}" />
               {% endif %}
-            </div>
 
-            <div class="input-group has-validation mb-3">
-              <div class="form-floating">
-                <input type="password" name="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}" value="{% if form.password.value %}{{ form.password.value }}{% endif %}" id="id_password" placeholder="" required />
-                <label for="id_password">Пароль</label>
+              <div class="input-group has-validation mb-3">
+                <div class="form-floating">
+                  <input type="text" name="username" class="form-control {% if form.username.errors %}is-invalid{% endif %}" value="{% if form.username.value %}{{ form.username.value }}{% endif %}" id="id_username" placeholder="" required />
+                  <label for="id_username">Ім'я користувача</label>
+                </div>
+                {% if form.username.errors %}
+                  {% for error in form.username.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                  {% endfor %}
+                {% endif %}
               </div>
-              {% if form.password.errors %}
-                {% for error in form.password.errors %}
-                  <div class="invalid-feedback">{{ error }}</div>
-                {% endfor %}
-              {% endif %}
-            </div>
 
-            <div class="mb-3">
-              <a href="{% url 'users:registration' %}" class="gold_link">Створити акаунт</a>
-              <span>|</span>
-              <a href="#" class="gold_link">Забули пароль?</a>
-            </div>
-            <button type="submit" class="btn-gold mt-2">Увійти</button>
-          </form>
+              <div class="input-group has-validation mb-3">
+                <div class="form-floating">
+                  <input type="password" name="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}" value="{% if form.password.value %}{{ form.password.value }}{% endif %}" id="id_password" placeholder="" required />
+                  <label for="id_password">Пароль</label>
+                </div>
+                {% if form.password.errors %}
+                  {% for error in form.password.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                  {% endfor %}
+                {% endif %}
+              </div>
+
+              <div class="mb-3">
+                <a href="{% url 'users:registration' %}" class="gold_link">Створити акаунт</a>
+                <span>|</span>
+                <a href="#" class="gold_link">Забули пароль?</a>
+              </div>
+              <button type="submit" class="btn-gold mt-2">Увійти</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </і>
+  </section>
 {% endblock %}
 
-{% block footer %}
-
-{% endblock %}

@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import get_object_or_404
+from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -67,4 +68,12 @@ class JarUpdate(generic.UpdateView):
     template_name = "jars/update.html"
     form_class = JarUpdateForm
     success_url = reverse_lazy("jars:jars_list")
-    
+
+
+def delete_jar(request, slug):
+    if request.method == "POST":
+        jar = Jar.objects.get(slug=slug)
+        jar.delete()
+
+        messages.success(request, "Банка успішно видалена")
+    return redirect("jars:jars_list")

@@ -13,5 +13,5 @@ class UserLoginView(LoginView):
 class UserRegistrationView(CreateView):
     template_name = "users/registration.html"
     form_class = UserRegistrationForm
-    success_url = reverse_lazy("tracker:index")
+    success_url = reverse_lazy("tracker:arhiv")
     

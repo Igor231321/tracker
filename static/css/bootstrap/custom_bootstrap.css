@@ -11,6 +11,11 @@ p {
     margin: 0;
 }
 
+.toast-container {
+    top: 1rem;
+    right: 1rem;
+}
+
 .toast {
     --bs-toast-zindex: 1090;
     --bs-toast-padding-x: 0.75rem;
@@ -24,9 +29,17 @@ p {
     --bs-toast-border-color: var(--bs-border-color-translucent);
     --bs-toast-border-radius: var(--bs-border-radius);
     --bs-toast-box-shadow: var(--bs-box-shadow);
-    --bs-toast-header-color: var(--bs-white);
-    --bs-toast-header-bg: var(--foreground);
+    --bs-toast-header-color: #202020;
+    --bs-toast-header-bg: var(--gold);
     --bs-toast-header-border-color: var(--bs-border-color-translucent);
+    position: sticky;
+}
+
+@media (max-width: 769px) {
+    .toast-container {
+        right: 50%;
+        transform: translateX(50%);
+    }
 }
 
 .dropdown-menu {
@@ -40,6 +53,12 @@ p {
     --bs-dropdown-item-border-radius: calc(.5rem - 1px);
 }
 
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+
 .accordion {
     --bs-accordion-bg: var(--background);
     --bs-accordion-btn-focus-box-shadow: transparant;
@@ -47,7 +66,8 @@ p {
     --bs-accordion-active-bg: var(--gold);
 }
 
-.accordion-button, .dropdown-item {
+.accordion-button,
+.dropdown-item {
     font-weight: 600;
 }
 
@@ -62,11 +82,6 @@ p {
 
 .btn-light {
     border-color: #bebebe;
-}
-
-.toast-container {
-    bottom: 2rem;
-    right: 3rem;
 }
 
 .card-header {

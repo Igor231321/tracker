@@ -29,7 +29,7 @@
                   {% endfor %}
                 {% endif %}
               </div>
-  
+
               <div class="input-group has-validation mb-3">
                 <div class="form-floating {% if form.amount.errors %}is-invalid{% endif %}">
                   <input type="text" class="form-control {% if form.amount.errors %}is-invalid{% endif %}" name="amount" value="{% if form.amount.value %}{{ form.amount.value }}{% endif %}" id="id_amount" required placeholder="" step="0.01" />
@@ -41,14 +41,22 @@
                   {% endfor %}
                 {% endif %}
               </div>
-  
+
               <div class="input-group has-validation mb-3">
                 <div class="form-floating {% if form.category.errors %}is-invalid{% endif %}">
                   <select class="form-select" name="category" required id="id_category">
                     <option value="">Виберіть категорію</option>
-                    {% for category in categories %}
-                      <option value="{{ category.pk }}">{{ category.title }}</option>
-                    {% endfor %}
+                    <optgroup label="Категорії витрат">
+                      {% for category in categories_expense %}
+                        <option value="{{ category.pk }}">{{ category.title }}</option>
+                      {% endfor %}
+                    </optgroup>
+
+                    <optgroup label="Категорії доходів">
+                      {% for category in categories_income %}
+                        <option value="{{ category.pk }}">{{ category.title }}</option>
+                      {% endfor %}
+                    </optgroup>
                   </select>
                   <label for="id_category">Категорія</label>
                 </div>
@@ -58,26 +66,10 @@
                   {% endfor %}
                 {% endif %}
               </div>
-  
-              <div class="input-group has-validation mb-3">
-                <div class="form-floating {% if form.status.errors %}is-invalid{% endif %}">
-                  <select class="form-select" name="status" id="id_status" required>
-                    {% for value, label in status %}
-                      <option value="{{ value }}">{{ label }}</option>
-                    {% endfor %}
-                  </select>
-                  <label for="id_status">Тип транзакції</label>
-                </div>
-                {% if form.status.errors %}
-                  {% for error in form.status.errors %}
-                    <div class="invalid-feedback">{{ error }}</div>
-                  {% endfor %}
-                {% endif %}
-              </div>
-  
+
               <div class="input-group has-validation mb-3">
                 <div class="form-floating {% if form.created_at.errors %}is-invalid{% endif %}">
-                  <input type="date" name="created_at" class="form-control" value="{% if form.created_at.value %}{{ form.created_at.value }}{% endif %}" id="id_created_at" placeholder="" required readonly />
+                  <input type="date" name="created_at" class="form-control" value="{% if form.created_at.value %}{{ form.created_at.value }}{% endif %}" id="id_created_at" placeholder="" required />
                   <label for="id_created_at">Дата транзакції:</label>
                 </div>
                 {% if form.created_at.errors %}
@@ -86,8 +78,10 @@
                   {% endfor %}
                 {% endif %}
               </div>
-  
-              <button type="submit" class="btn-gold">Додати</button>
+
+              <div class="d-grid">
+                <button type="submit" class="btn-gold">Додати</button>
+              </div>
             </form>
           </div>
         </div>
@@ -98,22 +92,20 @@
 
 {% block js %}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/uk.js"></script>
-
   <script>
-    $(document).ready(function () {
-      // Инициализация Flatpickr
-      $('#id_created_at').flatpickr({
-        dateFormat: 'Y-m-d H:i', // Формат: DD-MM-YYYY HH:MM
-        locale: 'uk', // Украинская локализация
-        allowInput: true, // Разрешить ввод даты вручную
-        maxDate: 'today', // Запрещает ввод дат в будущем
-        enableTime: true, // Разрешить выбор времени
-        noCalendar: false, // Включить календарь
-        time_24hr: true, // 24-часовой формат времени
-        defaultDate: 'today' // Поточна дата
-      })
+    document.addEventListener('DOMContentLoaded', function () {
+      // Получаем текущую дату
+      var today = new Date()
+    
+      // Форматируем её в формат YYYY-MM-01 (устанавливаем день как 01)
+      var yyyy = today.getFullYear()
+      var mm = (today.getMonth() + 1).toString().padStart(2, '0') // Добавляем ведущий ноль для месяца
+      var dd = '01' // Устанавливаем день как 01, так как поле даты требует значение для дня
+    
+      var formattedDate = yyyy + '-' + mm + '-' + dd
+    
+      // Устанавливаем значение в поле с датой
+      document.getElementById('id_created_at').value = formattedDate
     })
   </script>
 {% endblock %}

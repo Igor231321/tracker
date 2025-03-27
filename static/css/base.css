@@ -460,12 +460,4 @@ body {
     .stats {
         margin-bottom: .5rem;
     }
-
-    /* .stats.is_first {
-        border-radius: 1.5rem 1.5rem 0 0;
-    }
-
-    .stats.is_last {
-        border-radius: 0 0 1.5rem 1.5rem;
-    } */
 }

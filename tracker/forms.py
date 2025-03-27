@@ -7,7 +7,7 @@ from decimal import Decimal
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ["amount", "description", "category", "created_at", "status"]
+        fields = ["amount", "description", "category", "created_at"]
 
     amount = forms.CharField()
 
@@ -28,3 +28,4 @@ class TransactionForm(forms.ModelForm):
                 return Decimal(data)
             except (ValueError, TypeError):
                 raise forms.ValidationError("Невірний формат числа.")
+    

@@ -151,7 +151,8 @@ class TransactionCreateView(
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["categories"] = Category.objects.all()
+        context["categories_income"] = Category.objects.income()
+        context["categories_expense"] = Category.objects.expense()
         context["status"] = Status.choices
         return context
 

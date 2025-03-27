@@ -76,7 +76,7 @@ class Transaction(models.Model):
         max_digits=10, decimal_places=2, verbose_name="Сумма"
     )
     description = models.CharField("Опис", max_length=50)
-    created_at = models.DateTimeField(verbose_name="Дата")
+    created_at = models.DateField(verbose_name="Дата")
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
@@ -91,7 +91,7 @@ class Transaction(models.Model):
         verbose_name="Тип (доход/витрата)",
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Користувач")
-    current_balance = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Баланс на данний момент", blank=True, null=True)
+    current_balance = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Баланс на данний момент")
 
     objects = TransactionQuerySet().as_manager()
 
@@ -105,6 +105,8 @@ class Transaction(models.Model):
         return self.description
 
     def save(self, *args, **kwargs):
+        self.status = self.category.status
+
         if self.pk:
             old_transaction = Transaction.objects.get(pk=self.pk)
             

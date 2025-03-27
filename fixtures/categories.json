@@ -111,8 +111,8 @@
         "model": "tracker.category",
         "pk": 13,
         "fields": {
-            "title": "Такси",
-            "slug": "taksi",
+            "title": "Транспорт",
+            "slug": "transport",
             "status": "expense"
         }
     }
